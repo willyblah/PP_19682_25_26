@@ -1,10 +1,6 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.teamcode.constants.robotConfigs.LEFT_BACK;
-import static org.firstinspires.ftc.teamcode.constants.robotConfigs.LEFT_FRONT;
-import static org.firstinspires.ftc.teamcode.constants.robotConfigs.PIN_POINT;
-import static org.firstinspires.ftc.teamcode.constants.robotConfigs.RIGHT_BACK;
-import static org.firstinspires.ftc.teamcode.constants.robotConfigs.RIGHT_FRONT;
+import static org.firstinspires.ftc.teamcode.constants.robotConfigs.*;
 
 import com.bylazar.gamepad.GamepadManager;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
@@ -33,8 +29,6 @@ public class Drivetrain {
 
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
-//        rightFront.setDirection(DcMotorEx.Direction.REVERSE);
-//        rightBack.setDirection(DcMotorEx.Direction.REVERSE);
 
         leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
