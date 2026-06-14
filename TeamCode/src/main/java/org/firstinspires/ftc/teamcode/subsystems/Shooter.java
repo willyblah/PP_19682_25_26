@@ -34,7 +34,7 @@ public class Shooter {
     public DcMotorEx rightShooter;
     public DcMotorEx turret;
     public Servo panel;
-//    public Servo led;
+
     public static double targetVelocity = 0, spKp = 0.027, spKi = 0.0, spKd = 0.236, basePower = 0.17, tor = 0.025, hoodCorrection = 0.045;
     ElapsedTime dt = new ElapsedTime();
     double error, lastError, integral, derivative, lastTarget = 0.0, power = 0.0;
@@ -52,7 +52,6 @@ public class Shooter {
         leftShooter.setDirection(DcMotorSimple.Direction.REVERSE);
         turret.setDirection(DcMotorSimple.Direction.REVERSE);
 
-
         leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 
@@ -69,7 +68,6 @@ public class Shooter {
     }
 
     public void setShooterVelocity(double velocity) {
-
         leftShooter.setVelocity(velocity);
         rightShooter.setVelocity(velocity);
     }
@@ -153,6 +151,4 @@ public class Shooter {
     public void panelTo(double pos) {
         panel.setPosition(pos);
     }
-
-
 }
