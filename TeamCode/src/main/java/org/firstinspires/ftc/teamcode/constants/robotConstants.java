@@ -5,7 +5,7 @@ public class robotConstants {
     public static double TURRET_FULL_RANGE_ENCODER = 566;
 
     public static double L_GATE_OPEN = 0.554;
-    public static double L_GATE_CLOSE = 0.418;
+    public static double L_GATE_CLOSE = 0.403;
     public static double R_GATE_OPEN = 0.459;
     public static double R_GATE_CLOSE = 0.580;
     public static double CURVE_OPEN = 0.39;
