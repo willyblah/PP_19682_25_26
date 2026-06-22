@@ -68,6 +68,8 @@ public class Shooter {
     }
 
     public void setShooterVelocity(double velocity) {
+        leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
+        rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         leftShooter.setVelocity(velocity);
         rightShooter.setVelocity(velocity);
     }
