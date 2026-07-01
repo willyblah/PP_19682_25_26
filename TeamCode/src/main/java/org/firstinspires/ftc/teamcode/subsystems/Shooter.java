@@ -1,22 +1,10 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.teamcode.constants.panelConstants.SHOOTER_KD;
-import static org.firstinspires.ftc.teamcode.constants.panelConstants.SHOOTER_KF;
-import static org.firstinspires.ftc.teamcode.constants.panelConstants.SHOOTER_KI;
-import static org.firstinspires.ftc.teamcode.constants.panelConstants.SHOOTER_KP;
-import static org.firstinspires.ftc.teamcode.constants.panelConstants.VELOCITY_TOR;
-
-import static org.firstinspires.ftc.teamcode.constants.robotConfigs.LEFT_SHOOTER;
-import static org.firstinspires.ftc.teamcode.constants.robotConfigs.PANEL;
-import static org.firstinspires.ftc.teamcode.constants.robotConfigs.RIGHT_SHOOTER;
-import static org.firstinspires.ftc.teamcode.constants.robotConfigs.TURRET;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.TRIGGER_FIRE;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.TRIGGER_HOLD;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.TURRET_FULL_RANGE_DEGREE;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.TURRET_FULL_RANGE_ENCODER;
+import static org.firstinspires.ftc.teamcode.constants.panelConstants.*;
+import static org.firstinspires.ftc.teamcode.constants.robotConfigs.*;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
 
 import com.bylazar.configurables.annotations.Configurable;
-import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -24,9 +12,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.UnnormalizedAngleUnit;
 
 @Configurable
 public class Shooter {

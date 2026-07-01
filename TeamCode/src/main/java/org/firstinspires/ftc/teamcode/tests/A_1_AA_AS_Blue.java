@@ -1,12 +1,7 @@
 package org.firstinspires.ftc.teamcode.tests;
 
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndH;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndX;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndY;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetX;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetY;
-import static org.firstinspires.ftc.teamcode.subsystems.Shooter.hoodCorrection;
-import static org.firstinspires.ftc.teamcode.subsystems.Shooter.targetVelocity;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
+import static org.firstinspires.ftc.teamcode.subsystems.Shooter.*;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.JoinedTelemetry;
@@ -33,8 +28,6 @@ public class A_1_AA_AS_Blue extends LinearOpMode {
     double distanceCorrection = 2;
     long gap = 0;
     ElapsedTime timer = new ElapsedTime();
-    boolean intakeOn = false, intakeLeft = false, triggered = false, shootAll = false;
-    boolean lh = false, rh = false, yh = false, ch = false;
     JoinedTelemetry joinedTele;
     public static double at = 0.64;
 
@@ -67,9 +60,9 @@ public class A_1_AA_AS_Blue extends LinearOpMode {
             drivetrainHeading = current.getHeading(AngleUnit.DEGREES);
             vx = robot.drivetrain.pinPoint.getVelX(DistanceUnit.INCH);
             vy = robot.drivetrain.pinPoint.getVelY(DistanceUnit.INCH);
-            at = Math.abs(Math.hypot(teleOpTargetY - current.getY(DistanceUnit.INCH), teleOpTargetX - current.getX(DistanceUnit.INCH))) * 0.00575 + 0.4;
-            targetX = teleOpTargetX - at * vx;
-            targetY = teleOpTargetY - at * vy;
+            at = Math.abs(Math.hypot(136 - current.getY(DistanceUnit.INCH), 136.5 - current.getX(DistanceUnit.INCH))) * 0.00575 + 0.4;
+            targetX = 136.5 - at * vx;
+            targetY = 136 - at * vy;
             targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
             if (Math.abs(targetATAN - drivetrainHeading) <= 175) {
                 turretTargetHeading = (int) (targetATAN - drivetrainHeading);
@@ -84,6 +77,10 @@ public class A_1_AA_AS_Blue extends LinearOpMode {
             if (gamepad1.dpadLeftWasPressed()) turretCorrection -= 2;
             if (gamepad1.dpadRightWasPressed()) turretCorrection += 2;
 
+            if (gamepad1.startWasPressed()) {
+                robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 124, AngleUnit.RADIANS, Math.toRadians(90)));
+            }
+
             if (gamepad1.leftBumperWasPressed()) {
                 shooterOn = !shooterOn;
                 if (shooterOn) {
@@ -93,40 +90,27 @@ public class A_1_AA_AS_Blue extends LinearOpMode {
 
             if (shooterOn) {
                 robot.intake.gateOpen();
-//                robot.shooter.setShooterVelocity(shooterVelocity);
                 robot.shooter.setShooterByDis(distance + distanceCorrection);
                 robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
-//                robot.shooter.turretToDegPP(turretTargetHeading);
-            }
-            else {
+            } else {
                 robot.intake.gateClose();
                 robot.shooter.shooterHold();
-//                robot.shooter.shooterStop();
-//                robot.shooter.turretToDegPP(drivetrainHeading);
                 robot.shooter.turretToDegree(0);
             }
-
-//            robot.shooter.panelTo(panelPos);
 
             joinedTele.addData("x", current.getX(DistanceUnit.INCH));
             joinedTele.addData("y", current.getY(DistanceUnit.INCH));
             joinedTele.addData("h", current.getHeading(AngleUnit.DEGREES));
             joinedTele.addData("target", targetATAN);
-//            joinedTele.addData("turretTarget", turretTargetHeading);
-//            joinedTele.addData("turretHeading", robot.shooter.getPPHeading());
             joinedTele.addData("turretTo", turretTargetHeading);
-//            joinedTele.addData("turretTicks", robot.shooter.getTurretPosition());
             joinedTele.addData("turretDegree", robot.shooter.getTurretDegree());
             joinedTele.addData("distance", distance);
-//            joinedTele.addData("panel", panelPos);
-//            joinedTele.addData("panelActPos", robot.shooter.panel.getPosition());
             joinedTele.addData("shooterT", targetVelocity);
             joinedTele.addData("shooterVL", robot.shooter.leftShooter.getVelocity());
             joinedTele.addData("shooterVR", robot.shooter.rightShooter.getVelocity());
             joinedTele.addData("turretCorrection", turretCorrection);
             joinedTele.addData("distanceCorrection", distanceCorrection);
             joinedTele.addData("intakePower", robot.shooter.calculateIntakePower());
-//            joinedTele.addData("shootAllTime", TOTAL_SHOOT_TIME);
             joinedTele.update();
         }
     }
