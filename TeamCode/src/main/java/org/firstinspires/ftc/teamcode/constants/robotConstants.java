@@ -23,7 +23,6 @@ public class robotConstants {
     public static volatile double RED_TARGET_X = 136.5;
     public static volatile double RED_TARGET_Y = 8.0;
 
-    public static volatile double teleOpTargetX = 136.5;
-//    public static volatile double teleOpTargetY = 138;
-    public static volatile double teleOpTargetY = 8;
+    public static volatile double teleOpTargetX;
+    public static volatile double teleOpTargetY;
 }

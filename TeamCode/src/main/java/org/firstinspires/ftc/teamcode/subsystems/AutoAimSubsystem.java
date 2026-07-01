@@ -50,8 +50,8 @@ public class AutoAimSubsystem {
 
     public static double PANEL_MIN = 0.2;
     public static double PANEL_MAX = 0.59;
-    public static double TURRET_MIN_SAFE_ANGLE = -150.0;
-    public static double TURRET_MAX_SAFE_ANGLE = 150.0;
+    public static double TURRET_MIN_SAFE_ANGLE = -175.0;
+    public static double TURRET_MAX_SAFE_ANGLE = 175.0;
     public static double TURRET_CENTER_ANGLE = 0.0;
     public static boolean RESET_TURRET_ENCODER_ON_INIT = false;
 

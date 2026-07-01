@@ -1,7 +1,12 @@
 package org.firstinspires.ftc.teamcode.tests;
 
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
-import static org.firstinspires.ftc.teamcode.subsystems.Shooter.*;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndH;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndX;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndY;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetX;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetY;
+import static org.firstinspires.ftc.teamcode.subsystems.Shooter.hoodCorrection;
+import static org.firstinspires.ftc.teamcode.subsystems.Shooter.targetVelocity;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.JoinedTelemetry;
@@ -17,9 +22,9 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 @TeleOp
 @Configurable
-public class A_1_AA_AS extends LinearOpMode {
+public class A_1_AA_AS_Blue extends LinearOpMode {
     Robot robot = new Robot();
-    double targetX, targetY, vx, vy;
+    double targetX = 136.5, targetY = 136, vx, vy;
     int turretTargetHeading = 0;
     double targetATAN, drivetrainHeading;
     boolean shooterOn = false;
@@ -37,8 +42,6 @@ public class A_1_AA_AS extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, autoEndY, 144 - autoEndX, AngleUnit.RADIANS, autoEndH - Math.PI / 2.0));
-        targetX = teleOpTargetX;
-        targetY = teleOpTargetY;
         joinedTele = new JoinedTelemetry(telemetry, PanelsTelemetry.INSTANCE.getFtcTelemetry());
         waitForStart();
         robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, autoEndY, 144 - autoEndX, AngleUnit.RADIANS, autoEndH - Math.PI / 2.0));

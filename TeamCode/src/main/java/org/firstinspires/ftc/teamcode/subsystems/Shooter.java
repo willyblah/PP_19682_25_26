@@ -86,7 +86,6 @@ public class Shooter {
         return Math.abs(getShooterVelocity() - targetVelocity) <= VELOCITY_TOR;
     }
 
-
     public void shooterHold() {
         leftShooter.setVelocity(1360);
         rightShooter.setVelocity(1360);
@@ -120,7 +119,7 @@ public class Shooter {
         targetVelocity = f(-0.00039, 0.1345118, -5.930571, 1286.731, distance);
         leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
-        setShooter(Range.clip(f(0.0, 0.000002082898, 0.003827418, 0.05630374, distance), 0.2, 0.59), targetVelocity);
+        setShooter(Range.clip(f(0.0, 0.000002082898, 0.003827418, 0.05630374, distance), 0.2, 0.66), targetVelocity);
     }
 
     public double calculateIntakePower() {
