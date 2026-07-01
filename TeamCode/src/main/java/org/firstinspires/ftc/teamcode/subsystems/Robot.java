@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.TOTAL_SHOOT_TIME;
-
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import java.util.concurrent.Executors;

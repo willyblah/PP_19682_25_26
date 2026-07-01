@@ -124,8 +124,8 @@ public class Shooter {
     }
 
     public double calculateIntakePower() {
-        if (targetVelocity > 1450) return 0.7;
-        return 0.9;
+        if (targetVelocity > 1450) return 0.8;
+        return 1.0;
     }
 
     public long calculateGap() {

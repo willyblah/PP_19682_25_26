@@ -1,13 +1,7 @@
 package org.firstinspires.ftc.teamcode.tests;
 
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.TOTAL_SHOOT_TIME;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndH;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndX;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndY;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetX;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetY;
-import static org.firstinspires.ftc.teamcode.subsystems.Shooter.hoodCorrection;
-import static org.firstinspires.ftc.teamcode.subsystems.Shooter.targetVelocity;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
+import static org.firstinspires.ftc.teamcode.subsystems.Shooter.*;
 
 import com.bylazar.configurables.annotations.Configurable;
 import com.bylazar.telemetry.JoinedTelemetry;
@@ -42,7 +36,6 @@ public class A_1_AA_AS extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
-//        robot.shooter.reset();
         robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, autoEndY, 144 - autoEndX, AngleUnit.RADIANS, autoEndH - Math.PI / 2.0));
         targetX = teleOpTargetX;
         targetY = teleOpTargetY;
