@@ -26,15 +26,12 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 public class A_1_AA_AS extends LinearOpMode {
     Robot robot = new Robot();
     double targetX = 136.5, targetY = 138, vx, vy;
-//    double targetX = 136.5, targetY = 6;
     int turretTargetHeading = 0;
     double targetATAN, drivetrainHeading;
-//    double panelPos = 0.5, shooterVelocity = 2300;
-//    double panelPos = 0.555, shooterVelocity = 2150;
     boolean shooterOn = false;
     double distance;
     int turretCorrection = 0;
-    double distanceCorrection = 0;
+    double distanceCorrection = 2;
     long gap = 0;
     ElapsedTime timer = new ElapsedTime();
     boolean intakeOn = false, intakeLeft = false, triggered = false, shootAll = false;
@@ -78,7 +75,7 @@ public class A_1_AA_AS extends LinearOpMode {
             targetX = teleOpTargetX - at * vx;
             targetY = teleOpTargetY - at * vy;
             targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
-            if (Math.abs(targetATAN - drivetrainHeading) <= 80) {
+            if (Math.abs(targetATAN - drivetrainHeading) <= 150) {
                 turretTargetHeading = (int) (targetATAN - drivetrainHeading);
             } else {
                 turretTargetHeading = 0;

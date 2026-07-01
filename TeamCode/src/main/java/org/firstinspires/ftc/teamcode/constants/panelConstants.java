@@ -4,10 +4,10 @@ import com.bylazar.configurables.annotations.Configurable;
 
 @Configurable
 public class panelConstants {
-    public static double SHOOTER_KP = 80;
+    public static double SHOOTER_KP = 140;
     public static double SHOOTER_KI = 0;
-    public static double SHOOTER_KD = 10;
-    public static double SHOOTER_KF = 15;
+    public static double SHOOTER_KD = 5;
+    public static double SHOOTER_KF = 12;
 
     public static long SHOOT_MS = 45;
     public static long HOLD_MS = 380;

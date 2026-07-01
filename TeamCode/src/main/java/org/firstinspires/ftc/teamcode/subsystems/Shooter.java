@@ -39,12 +39,12 @@ public class Shooter {
     ElapsedTime dt = new ElapsedTime();
     double error, lastError, integral, derivative, lastTarget = 0.0, power = 0.0;
 
-    public void init (HardwareMap hardwareMap) {
+    public void init(HardwareMap hardwareMap) {
         leftShooter = hardwareMap.get(DcMotorEx.class, LEFT_SHOOTER);
         rightShooter = hardwareMap.get(DcMotorEx.class, RIGHT_SHOOTER);
         turret = hardwareMap.get(DcMotorEx.class, TURRET);
         panel = hardwareMap.get(Servo.class, PANEL);
-        
+
         leftShooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightShooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         turret.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -117,14 +117,15 @@ public class Shooter {
     }
 
     public void setShooterByDis(double distance) {
-        targetVelocity = f(-0.0004276526, 0.1345118, -5.930571, 1286.731, distance);
+        targetVelocity = f(-0.00039, 0.1345118, -5.930571, 1286.731, distance);
+        leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
+        rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         setShooter(Range.clip(f(0.0, 0.000002082898, 0.003827418, 0.05630374, distance), 0.2, 0.59), targetVelocity);
     }
 
     public double calculateIntakePower() {
-//        return Range.clip(f(0, -6E-07, 0.0012, 0.5244, targetVelocity), 0.63, 1.0);
-        if (targetVelocity > 1800) return 0.85;
-        return 1.0;
+        if (targetVelocity > 1450) return 0.7;
+        return 0.9;
     }
 
     public long calculateGap() {
