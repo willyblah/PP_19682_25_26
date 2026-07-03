@@ -20,7 +20,7 @@ public class Drivetrain {
     public GoBildaPinpointDriver pinPoint;
     private double theta, power, turn, realTheta;
 
-    public void init (HardwareMap hardwareMap) {
+    public void init(HardwareMap hardwareMap) {
         pinPoint = hardwareMap.get(GoBildaPinpointDriver.class, PIN_POINT);
         leftFront = hardwareMap.get(DcMotorEx.class, LEFT_FRONT);
         leftBack = hardwareMap.get(DcMotorEx.class, LEFT_BACK);
@@ -30,10 +30,10 @@ public class Drivetrain {
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
 
-        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+//        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         pinPoint.setOffsets(-141.5, 48, DistanceUnit.MM);
         pinPoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
