@@ -87,13 +87,13 @@ public class A_2_AA_AS extends LinearOpMode {
                 }
             }
 
-            if (gamepad2.leftBumperWasPressed()) {
+            if (gamepad2.shareWasPressed()) {
                 robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 124, AngleUnit.RADIANS, Math.toRadians(90)));
                 targetX = BLUE_TARGET_X;
                 targetY = BLUE_TARGET_Y;
                 blue = true;
             }
-            if (gamepad2.rightBumperWasPressed()) {
+            if (gamepad2.startWasPressed()) {
                 robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 22, AngleUnit.RADIANS, Math.toRadians(-90)));
                 targetX = RED_TARGET_X;
                 targetY = RED_TARGET_Y;

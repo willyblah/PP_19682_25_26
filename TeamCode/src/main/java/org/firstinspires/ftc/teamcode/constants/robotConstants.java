@@ -11,9 +11,6 @@ public class robotConstants {
     public static double CURVE_OPEN = 0.39;
     public static double CURVE_CLOSE = 0.605;
 
-    public static double TRIGGER_FIRE = 0.443;
-    public static double TRIGGER_HOLD = 0.819;
-
     public static volatile double autoEndX = 72;
     public static volatile double autoEndY = 72;
     public static volatile double autoEndH = Math.PI / 2.0;
