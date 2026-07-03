@@ -92,10 +92,12 @@ public class A_2_AA_AS_Red extends LinearOpMode {
                 robot.intake.gateOpen();
                 robot.shooter.setShooterByDis(distance + distanceCorrection);
                 robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
+                robot.drivetrain.brakeOn();
             } else {
                 robot.intake.gateClose();
                 robot.shooter.shooterHold();
                 robot.shooter.turretToDegree(0);
+                robot.drivetrain.brakeOff();
             }
 
             joinedTele.addData("x", current.getX(DistanceUnit.INCH));
