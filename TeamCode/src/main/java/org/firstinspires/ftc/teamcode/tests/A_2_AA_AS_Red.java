@@ -111,6 +111,7 @@ public class A_2_AA_AS_Red extends LinearOpMode {
             joinedTele.addData("turretCorrection", turretCorrection);
             joinedTele.addData("distanceCorrection", distanceCorrection);
             joinedTele.addData("intakePower", robot.shooter.calculateIntakePower());
+            joinedTele.addData("panel", robot.shooter.panel.getPosition());
             joinedTele.update();
         }
     }

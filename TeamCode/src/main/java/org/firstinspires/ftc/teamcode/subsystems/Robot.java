@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class Robot {
-    ScheduledExecutorService exec = Executors.newScheduledThreadPool(50);
+    ScheduledExecutorService exec = Executors.newScheduledThreadPool(5);
     public Drivetrain drivetrain = new Drivetrain();
     public Intake intake = new Intake();
     public Shooter shooter = new Shooter();

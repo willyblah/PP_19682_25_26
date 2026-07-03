@@ -72,8 +72,8 @@ public class Shooter {
     }
 
     public void shooterHold() {
-        leftShooter.setVelocity(1360);
-        rightShooter.setVelocity(1360);
+        leftShooter.setVelocity(1200);
+        rightShooter.setVelocity(1200);
     }
 
     public void shooterStop() {
@@ -101,14 +101,15 @@ public class Shooter {
     }
 
     public void setShooterByDis(double distance) {
-        targetVelocity = f(-0.00039, 0.1345118, -5.930571, 1286.731, distance);
+        targetVelocity = f(-0.000375, 0.1345118, -5.930571, 1286.731, distance) * 1.34;
         leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
-        setShooter(Range.clip(f(0.0, 0.000002082898, 0.003827418, 0.05630374, distance), 0.2, 0.66), targetVelocity);
+        setShooter(Range.clip(f(0.0, 0.000002082898, 0.003827418, 0.05630374, distance), 0.2, 0.65), targetVelocity);
     }
 
     public double calculateIntakePower() {
-        if (targetVelocity > 1450) return 0.8;
+        if (targetVelocity > 2400) return 0.6;
+        if (targetVelocity > 1450) return 0.75;
         return 1.0;
     }
 
