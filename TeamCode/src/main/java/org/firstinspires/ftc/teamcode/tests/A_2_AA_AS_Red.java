@@ -20,9 +20,9 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 public class A_2_AA_AS_Red extends LinearOpMode {
     Robot robot = new Robot();
     double targetX = 136.5, targetY = 8, vx, vy;
-    int turretTargetHeading = 0;
-    double targetATAN, drivetrainHeading;
-    boolean shooterOn = false;
+    int turretTargetHeading = 0, manualVelocity;
+    double targetATAN, drivetrainHeading, manualPanel;
+    boolean shooterOn = false, manual = false;
     double distance;
     int turretCorrection = 0;
     double distanceCorrection = 2;
@@ -88,10 +88,29 @@ public class A_2_AA_AS_Red extends LinearOpMode {
                 robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 22, AngleUnit.RADIANS, Math.toRadians(-90)));
             }
 
+            if (gamepad2.triangleWasPressed()) {
+                manualVelocity = 1800;
+                manualPanel = 0.3;
+                manual = true;
+            }
+            if (gamepad2.squareWasPressed()) {
+                manualVelocity = 2100;
+                manualPanel = 0.4;
+                manual = true;
+            }
+            if (gamepad2.crossWasPressed()) {
+                manual = false;
+            }
+
             if (shooterOn) {
                 robot.intake.gateOpen();
-                robot.shooter.setShooterByDis(distance + distanceCorrection);
-                robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
+                if (manual) {
+                    robot.shooter.setShooter(manualPanel, manualVelocity);
+                    robot.shooter.turretToDegree(0);
+                } else {
+                    robot.shooter.setShooterByDis(distance + distanceCorrection);
+                    robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
+                }
                 robot.drivetrain.brakeOn();
             } else {
                 robot.intake.gateClose();

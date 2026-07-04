@@ -38,7 +38,6 @@ public class BluePathChains {
     PathChain CLOSE_INTAKE_SECOND_ROW_CHAIN;
     PathChain CLOSE_INTAKE_THIRD_ROW_CHAIN;
     PathChain CLOSE_INTAKE_GATE_CHAIN;
-    PathChain FAR_682;
 
     public BluePathChains(Follower follower) {
         FAR_INTAKE_THIRD_ROW_CHAIN = follower.pathBuilder()
@@ -165,24 +164,6 @@ public class BluePathChains {
                 )
                 .setLinearHeadingInterpolation(BLUE_CLOSE_SHOOT_INTAKE_GATE.getHeading(), BLUE_CLOSE_INTAKE_GATE.getHeading())
                 .build();
-
-        FAR_682 = follower.pathBuilder()
-                .addPath(
-                        new BezierLine(
-                                new Pose(BLUE_FAR_START.getX(), BLUE_FAR_START.getY()),
-                                new Pose(BLUE_FAR_INTAKE_HP_1_START.getX(), BLUE_FAR_INTAKE_HP_1_START.getY())
-                        )
-                )
-                .setLinearHeadingInterpolation(BLUE_FAR_SHOOT_HP.getHeading(), BLUE_FAR_INTAKE_HP_1_START.getHeading())
-                .addPath(
-                        new BezierCurve(
-                                new Pose(BLUE_FAR_INTAKE_HP_1_START.getX(), BLUE_FAR_INTAKE_HP_1_START.getY()),
-                                new Pose(BLUE_FAR_INTAKE_HP_1_MID.getX(), BLUE_FAR_INTAKE_HP_1_MID.getY()),
-                                new Pose(BLUE_FAR_INTAKE_HP_1_END.getX(), BLUE_FAR_INTAKE_HP_1_END.getY())
-                        )
-                )
-                .setLinearHeadingInterpolation(BLUE_FAR_INTAKE_HP_1_START.getHeading(), BLUE_FAR_INTAKE_HP_1_END.getHeading())
-                .build();
     }
 
     public PathChain getFAR_INTAKE_THIRD_ROW_CHAIN() {
@@ -211,9 +192,5 @@ public class BluePathChains {
 
     public PathChain getCLOSE_INTAKE_GATE_CHAIN() {
         return CLOSE_INTAKE_GATE_CHAIN;
-    }
-
-    public PathChain getFAR_682() {
-        return FAR_682;
     }
 }

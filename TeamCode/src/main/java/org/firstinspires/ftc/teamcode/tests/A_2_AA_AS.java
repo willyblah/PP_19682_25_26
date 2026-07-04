@@ -21,9 +21,9 @@ public class A_2_AA_AS extends LinearOpMode {
     Robot robot = new Robot();
     double targetX = RED_TARGET_X, targetY = RED_TARGET_Y, vx, vy;
     boolean blue = false;
-    int turretTargetHeading = 0;
-    double targetATAN, drivetrainHeading;
-    boolean shooterOn = false;
+    int turretTargetHeading = 0, manualVelocity;
+    double targetATAN, drivetrainHeading, manualPanel;
+    boolean shooterOn = false, manual = false;
     double distance;
     int turretCorrection = 0;
     double distanceCorrection = 2;
@@ -100,13 +100,31 @@ public class A_2_AA_AS extends LinearOpMode {
                 blue = false;
             }
 
+            if (gamepad2.triangleWasPressed()) {
+                manualVelocity = 1800;
+                manualPanel = 0.3;
+                manual = true;
+            }
+            if (gamepad2.squareWasPressed()) {
+                manualVelocity = 2100;
+                manualPanel = 0.4;
+                manual = true;
+            }
+            if (gamepad2.crossWasPressed()) {
+                manual = false;
+            }
+
             if (shooterOn) {
                 robot.intake.gateOpen();
-                robot.shooter.setShooterByDis(distance + distanceCorrection);
-                robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
+                if (manual) {
+                    robot.shooter.setShooter(manualPanel, manualVelocity);
+                    robot.shooter.turretToDegree(0);
+                } else {
+                    robot.shooter.setShooterByDis(distance + distanceCorrection);
+                    robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
+                }
                 robot.drivetrain.brakeOn();
-            }
-            else {
+            } else {
                 robot.intake.gateClose();
                 robot.shooter.shooterHold();
                 robot.shooter.turretToDegree(0);
