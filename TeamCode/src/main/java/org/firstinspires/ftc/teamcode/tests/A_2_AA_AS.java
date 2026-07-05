@@ -102,6 +102,7 @@ public class A_2_AA_AS extends LinearOpMode {
                 robot.shooter.shooterHold();
                 robot.shooter.turretToDegree(0);
             }
+            robot.drivetrain.shootOnMoving(shooterOn);
 
             joinedTele.addData("x", current.getX(DistanceUnit.INCH));
             joinedTele.addData("y", current.getY(DistanceUnit.INCH));

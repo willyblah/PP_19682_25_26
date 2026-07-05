@@ -4,6 +4,7 @@ import static org.firstinspires.ftc.teamcode.constants.robotConfigs.*;
 
 import com.bylazar.gamepad.GamepadManager;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -84,6 +85,21 @@ public class Drivetrain {
         rightFront.setPower(rightFrontPower * p);
         leftBack.setPower(leftBackPower * p);
         rightBack.setPower(rightBackPower * p);
+    }
+
+    public void shootOnMoving(boolean shootOn){
+        if (!shootOn){
+            leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+            leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+            rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+            rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
+        }
+        else {
+            leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+            leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+            rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+            rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        }
     }
 
     public Pose2D getPosition() {
