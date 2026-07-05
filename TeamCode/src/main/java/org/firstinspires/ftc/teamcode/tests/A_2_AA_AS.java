@@ -22,7 +22,7 @@ public class A_2_AA_AS extends LinearOpMode {
     double targetX = 136.5, targetY = 8, vx, vy;
     int turretTargetHeading = 0;
     double targetATAN, drivetrainHeading;
-    boolean shooterOn = false, movingShoot = false;
+    boolean shooterOn = false, movingShoot = false, shootingPre = false;
     double distance;
     int turretCorrection = 0;
     double distanceCorrection = 2;
@@ -54,6 +54,7 @@ public class A_2_AA_AS extends LinearOpMode {
             } else if (gamepad1.right_bumper) {
                 if (timer.milliseconds() > 180) hoodCorrection = 0.045;
                 robot.intake.intakeIn(robot.shooter.calculateIntakePower());
+                shootingPre = !shootingPre;
             } else {
                 robot.intake.intakeStop();
             }
@@ -102,7 +103,7 @@ public class A_2_AA_AS extends LinearOpMode {
                 robot.shooter.shooterHold();
                 robot.shooter.turretToDegree(0);
             }
-            robot.drivetrain.shootOnMoving(shooterOn);
+            robot.drivetrain.shootOnMoving(shootingPre);
 
             joinedTele.addData("x", current.getX(DistanceUnit.INCH));
             joinedTele.addData("y", current.getY(DistanceUnit.INCH));

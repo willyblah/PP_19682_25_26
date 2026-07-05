@@ -95,7 +95,6 @@ public class Shooter {
     }
 
     public void setShooterByDis(double distance) {
-//        targetVelocity = f(-0.00039, 0.1345118, -5.930571, 1406.731, distance);
         leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         targetVelocity = f(a, b, c, d, distance);

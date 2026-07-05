@@ -87,8 +87,8 @@ public class Drivetrain {
         rightBack.setPower(rightBackPower * p);
     }
 
-    public void shootOnMoving(boolean shootOn){
-        if (!shootOn){
+    public void shootOnMoving(boolean shootingPre){
+        if (!shootingPre){
             leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
             leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
             rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
