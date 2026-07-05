@@ -20,9 +20,11 @@ public class Shooter {
     public DcMotorEx turret;
     public Servo panel;
 
-    public static double targetVelocity = 0, spKp = 0.027, spKi = 0.0, spKd = 0.236, basePower = 0.17, tor = 0.025, hoodCorrection = 0.045;
-    ElapsedTime dt = new ElapsedTime();
-    double error, lastError, integral, derivative, lastTarget = 0.0, power = 0.0;
+    public static double targetVelocity = 0,  hoodCorrection = 0.045;
+    public static double targetPanel = 0;
+    double a = -0.000785, b = 0.117, c = 1.83, d = 1017.3;
+    double pa = 7E-07, pb = -0.0002, pc = 0.0236, pd = -0.5193;
+
 
     public void init(HardwareMap hardwareMap) {
         leftShooter = hardwareMap.get(DcMotorEx.class, LEFT_SHOOTER);
@@ -63,17 +65,9 @@ public class Shooter {
         return (rightShooter.getVelocity() + leftShooter.getVelocity()) / 2.0;
     }
 
-    public boolean shooterReady(double target) {
-        return Math.abs(getShooterVelocity() - target) <= VELOCITY_TOR;
-    }
-
-    public boolean shooterReady() {
-        return Math.abs(getShooterVelocity() - targetVelocity) <= VELOCITY_TOR;
-    }
-
     public void shooterHold() {
-        leftShooter.setVelocity(1000);
-        rightShooter.setVelocity(1000);
+        leftShooter.setVelocity(800);
+        rightShooter.setVelocity(800);
     }
 
     public void shooterStop() {
@@ -101,20 +95,17 @@ public class Shooter {
     }
 
     public void setShooterByDis(double distance) {
-        targetVelocity = f(-0.00037, 0.1345118, -5.930571, 1286.731, distance) * 1.36;
+//        targetVelocity = f(-0.00039, 0.1345118, -5.930571, 1406.731, distance);
         leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
-        setShooter(Range.clip(f(0.0, 0.000002, 0.0038, 0.055, distance), 0.2, 0.65), targetVelocity);
+        targetVelocity = f(a, b, c, d, distance);
+        targetPanel = f(pa, pb, pc, pd, distance);
+        setShooter(Range.clip(f(0.0, 0.000002082898, 0.003827418, 0.05630374, distance), 0.25, 1), targetVelocity);
     }
 
     public double calculateIntakePower() {
-        if (targetVelocity > 2400) return 0.5;
-        if (targetVelocity > 1860) return 0.8;
+        if (targetVelocity > 1500) return 0.85;
         return 1.0;
-    }
-
-    public long calculateGap() {
-        return (long) Math.max(0.0, f(0.0, -6.13e-5, 0.806, -1342.0, targetVelocity)) + 80;
     }
 
     public double f(double a, double b, double c, double d, double x) {

@@ -22,7 +22,7 @@ public class A_1_AA_AS extends LinearOpMode {
     double targetX = 136.5, targetY = 8, vx, vy;
     int turretTargetHeading = 0;
     double targetATAN, drivetrainHeading;
-    boolean shooterOn = false;
+    boolean shooterOn = false, movingShoot = false;
     double distance;
     int turretCorrection = 0;
     double distanceCorrection = 2;
@@ -63,8 +63,14 @@ public class A_1_AA_AS extends LinearOpMode {
             vx = robot.drivetrain.pinPoint.getVelX(DistanceUnit.INCH);
             vy = robot.drivetrain.pinPoint.getVelY(DistanceUnit.INCH);
             at = Math.abs(Math.hypot(8 - current.getY(DistanceUnit.INCH), 136.5 - current.getX(DistanceUnit.INCH))) * 0.00575 + 0.4;
-            targetX = 136.5 - at * vx;
-            targetY = 8 - at * vy;
+            if (movingShoot){
+                targetX = 136.5 - at * vx;
+                targetY = 8 - at * vy;
+            }else {
+                targetX = 136.5;
+                targetY = 8;
+            }
+
             targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
             if (Math.abs(targetATAN - drivetrainHeading) <= 175) {
                 turretTargetHeading = (int) (targetATAN - drivetrainHeading);
@@ -78,6 +84,7 @@ public class A_1_AA_AS extends LinearOpMode {
 
             if (gamepad1.dpadLeftWasPressed()) turretCorrection -= 2;
             if (gamepad1.dpadRightWasPressed()) turretCorrection += 2;
+            if (gamepad1.yWasPressed())  movingShoot = !movingShoot;
 
             if (gamepad1.leftBumperWasPressed()) {
                 shooterOn = !shooterOn;
@@ -104,6 +111,7 @@ public class A_1_AA_AS extends LinearOpMode {
             joinedTele.addData("target", targetATAN);
             joinedTele.addData("turretTo", turretTargetHeading);
             joinedTele.addData("turretDegree", robot.shooter.getTurretDegree());
+            joinedTele.addData("movingShoot", movingShoot);
             joinedTele.addData("distance", distance);
             joinedTele.addData("shooterT", targetVelocity);
             joinedTele.addData("shooterVL", robot.shooter.leftShooter.getVelocity());

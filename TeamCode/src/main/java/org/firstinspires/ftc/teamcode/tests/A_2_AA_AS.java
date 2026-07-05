@@ -19,11 +19,10 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 @Configurable
 public class A_2_AA_AS extends LinearOpMode {
     Robot robot = new Robot();
-    double targetX = RED_TARGET_X, targetY = RED_TARGET_Y, vx, vy;
-    boolean blue = false;
-    int turretTargetHeading = 0, manualVelocity;
-    double targetATAN, drivetrainHeading, manualPanel;
-    boolean shooterOn = false, manual = false;
+    double targetX = 136.5, targetY = 8, vx, vy;
+    int turretTargetHeading = 0;
+    double targetATAN, drivetrainHeading;
+    boolean shooterOn = false, movingShoot = false;
     double distance;
     int turretCorrection = 0;
     double distanceCorrection = 2;
@@ -36,8 +35,8 @@ public class A_2_AA_AS extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, autoEndY, 144 - autoEndX, AngleUnit.RADIANS, autoEndH - Math.PI / 2.0));
-        targetX = RED_TARGET_X;
-        targetY = RED_TARGET_Y;
+        targetX = 136.5;
+        targetY = 8;
         joinedTele = new JoinedTelemetry(telemetry, PanelsTelemetry.INSTANCE.getFtcTelemetry());
         waitForStart();
         robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, autoEndY, 144 - autoEndX, AngleUnit.RADIANS, autoEndH - Math.PI / 2.0));
@@ -63,9 +62,15 @@ public class A_2_AA_AS extends LinearOpMode {
             drivetrainHeading = current.getHeading(AngleUnit.DEGREES);
             vx = robot.drivetrain.pinPoint.getVelX(DistanceUnit.INCH);
             vy = robot.drivetrain.pinPoint.getVelY(DistanceUnit.INCH);
-            at = Math.abs(Math.hypot((blue ? BLUE_TARGET_Y : RED_TARGET_Y) - current.getY(DistanceUnit.INCH), (blue ? BLUE_TARGET_X : RED_TARGET_X) - current.getX(DistanceUnit.INCH))) * 0.00575 + 0.4;
-            targetX = (blue ? BLUE_TARGET_X : RED_TARGET_X) - at * vx;
-            targetY = (blue ? BLUE_TARGET_Y : RED_TARGET_Y) - at * vy;
+            at = Math.abs(Math.hypot(8 - current.getY(DistanceUnit.INCH), 136.5 - current.getX(DistanceUnit.INCH))) * 0.00575 + 0.4;
+            if (movingShoot){
+                targetX = 136.5 - at * vx;
+                targetY = 8 - at * vy;
+            }else {
+                targetX = 136.5;
+                targetY = 8;
+            }
+
             targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
             if (Math.abs(targetATAN - drivetrainHeading) <= 175) {
                 turretTargetHeading = (int) (targetATAN - drivetrainHeading);
@@ -79,6 +84,7 @@ public class A_2_AA_AS extends LinearOpMode {
 
             if (gamepad2.dpadLeftWasPressed()) turretCorrection -= 2;
             if (gamepad2.dpadRightWasPressed()) turretCorrection += 2;
+            if (gamepad1.yWasPressed())  movingShoot = !movingShoot;
 
             if (gamepad1.leftBumperWasPressed()) {
                 shooterOn = !shooterOn;
@@ -87,48 +93,14 @@ public class A_2_AA_AS extends LinearOpMode {
                 }
             }
 
-            if (gamepad2.shareWasPressed()) {
-                robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 124, AngleUnit.RADIANS, Math.toRadians(90)));
-                targetX = BLUE_TARGET_X;
-                targetY = BLUE_TARGET_Y;
-                blue = true;
-            }
-            if (gamepad2.startWasPressed()) {
-                robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 22, AngleUnit.RADIANS, Math.toRadians(-90)));
-                targetX = RED_TARGET_X;
-                targetY = RED_TARGET_Y;
-                blue = false;
-            }
-
-            if (gamepad2.triangleWasPressed()) {
-                manualVelocity = 1800;
-                manualPanel = 0.3;
-                manual = true;
-            }
-            if (gamepad2.squareWasPressed()) {
-                manualVelocity = 2100;
-                manualPanel = 0.4;
-                manual = true;
-            }
-            if (gamepad2.crossWasPressed()) {
-                manual = false;
-            }
-
             if (shooterOn) {
                 robot.intake.gateOpen();
-                if (manual) {
-                    robot.shooter.setShooter(manualPanel, manualVelocity);
-                    robot.shooter.turretToDegree(0);
-                } else {
-                    robot.shooter.setShooterByDis(distance + distanceCorrection);
-                    robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
-                }
-                robot.drivetrain.brakeOn();
+                robot.shooter.setShooterByDis(distance + distanceCorrection);
+                robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
             } else {
                 robot.intake.gateClose();
                 robot.shooter.shooterHold();
                 robot.shooter.turretToDegree(0);
-                robot.drivetrain.brakeOff();
             }
 
             joinedTele.addData("x", current.getX(DistanceUnit.INCH));
@@ -137,6 +109,7 @@ public class A_2_AA_AS extends LinearOpMode {
             joinedTele.addData("target", targetATAN);
             joinedTele.addData("turretTo", turretTargetHeading);
             joinedTele.addData("turretDegree", robot.shooter.getTurretDegree());
+            joinedTele.addData("movingShoot", movingShoot);
             joinedTele.addData("distance", distance);
             joinedTele.addData("shooterT", targetVelocity);
             joinedTele.addData("shooterVL", robot.shooter.leftShooter.getVelocity());
