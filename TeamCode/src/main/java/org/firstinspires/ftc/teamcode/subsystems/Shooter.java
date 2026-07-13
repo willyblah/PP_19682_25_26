@@ -22,8 +22,17 @@ public class Shooter {
 
     public static double targetVelocity = 0,  hoodCorrection = 0.045;
     public static double targetPanel = 0;
-    double a = -0.000785, b = 0.117, c = 1.83, d = 1017.3;
-    double pa = 7E-07, pb = -0.0002, pc = 0.0236, pd = -0.5193;
+    public static double RPM_A = -0.0004036439;
+    public static double RPM_B =  0.1057019636;
+    public static double RPM_C = -1.8999025678;
+    public static double RPM_D =  1153.0825835107;
+
+    public static double PANEL_A =  2.39680e-7;
+    public static double PANEL_B = -9.05038e-5;
+    public static double PANEL_C =  0.015501136306;
+    public static double PANEL_D = -0.302168750944;
+    public static double PANEL_MIN = 0.20;
+    public static double PANEL_MAX = 0.85;  // 从数据范围推导
 
 
     public void init(HardwareMap hardwareMap) {
@@ -90,21 +99,29 @@ public class Shooter {
     }
 
     public void setShooter(double panel, double velocity) {
-        panelTo(Range.clip(panel, 0.0, 1.0));
+        panelTo(Range.clip(panel, PANEL_MIN, PANEL_MAX));
         setShooterVelocity(velocity);
     }
 
     public void setShooterByDis(double distance) {
         leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
-        targetVelocity = f(a, b, c, d, distance);
-        targetPanel = f(pa, pb, pc, pd, distance);
-        setShooter(Range.clip(f(0.0, 0.000002082898, 0.003827418, 0.05630374, distance), 0.25, 1), targetVelocity);
+        targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance);
+        targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance);
+        setShooter(Range.clip(targetPanel, PANEL_MIN, PANEL_MAX), targetVelocity);
+    }
+    public void setShooterByDisShow(double distance) {
+        targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance);
+        targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance);
     }
 
     public double calculateIntakePower() {
-        if (targetVelocity > 1500) return 0.85;
-        return 1.0;
+        double v = targetVelocity;
+        if (v < 1540.0) return 1.0;
+        if (v < 1720.0) return 0.85;
+        if (v < 1800.0) return 0.80;
+        if (v < 1880.0) return 0.60;
+        return 0.50;
     }
 
     public double f(double a, double b, double c, double d, double x) {

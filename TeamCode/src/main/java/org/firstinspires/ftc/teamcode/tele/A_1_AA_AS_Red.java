@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.tests;
+package org.firstinspires.ftc.teamcode.tele;
 
 import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
 import static org.firstinspires.ftc.teamcode.subsystems.Shooter.*;
@@ -17,17 +17,15 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 @TeleOp
 @Configurable
-public class A_2_AA_AS_Blue extends LinearOpMode {
+public class A_1_AA_AS_Red extends LinearOpMode {
     Robot robot = new Robot();
-    double targetX = 136.5, targetY = 136, vx, vy;
+    double targetX = 136.5, targetY = 8, vx, vy;
     int turretTargetHeading = 0;
     double targetATAN, drivetrainHeading;
     boolean shooterOn = false;
     double distance;
     int turretCorrection = 0;
     double distanceCorrection = 2;
-    long gap = 0;
-    ElapsedTime timer = new ElapsedTime();
     JoinedTelemetry joinedTele;
     public static double at = 0.64;
 
@@ -47,10 +45,7 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
                 shooterOn = false;
             } else if (gamepad1.left_trigger > 0.1) {
                 robot.intake.intakeOut(gamepad1.left_trigger);
-            } else if (gamepad1.rightBumperWasPressed()) {
-                timer.reset();
-            } else if (gamepad1.right_bumper) {
-                if (timer.milliseconds() > 180) hoodCorrection = 0.045;
+            }  else if (gamepad1.right_bumper) {
                 robot.intake.intakeIn(robot.shooter.calculateIntakePower());
             } else {
                 robot.intake.intakeStop();
@@ -60,9 +55,9 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
             drivetrainHeading = current.getHeading(AngleUnit.DEGREES);
             vx = robot.drivetrain.pinPoint.getVelX(DistanceUnit.INCH);
             vy = robot.drivetrain.pinPoint.getVelY(DistanceUnit.INCH);
-            at = Math.abs(Math.hypot(136 - current.getY(DistanceUnit.INCH), 136.5 - current.getX(DistanceUnit.INCH))) * 0.00575 + 0.4;
+            at = Math.abs(Math.hypot(8 - current.getY(DistanceUnit.INCH), 136.5 - current.getX(DistanceUnit.INCH))) * 0.00575 + 0.4;
             targetX = 136.5 - at * vx;
-            targetY = 136 - at * vy;
+            targetY = 8 - at * vy;
             targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
             if (Math.abs(targetATAN - drivetrainHeading) <= 175) {
                 turretTargetHeading = (int) (targetATAN - drivetrainHeading);
@@ -71,11 +66,15 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
             }
             distance = Math.abs(Math.hypot(targetY - current.getY(DistanceUnit.INCH), targetX - current.getX(DistanceUnit.INCH)));
 
-            if (gamepad2.dpadUpWasPressed()) distanceCorrection += 2;
-            if (gamepad2.dpadDownWasPressed()) distanceCorrection -= 2;
+            if (gamepad1.dpadUpWasPressed()) distanceCorrection += 2;
+            if (gamepad1.dpadDownWasPressed()) distanceCorrection -= 2;
 
-            if (gamepad2.dpadLeftWasPressed()) turretCorrection -= 2;
-            if (gamepad2.dpadRightWasPressed()) turretCorrection += 2;
+            if (gamepad1.dpadLeftWasPressed()) turretCorrection -= 2;
+            if (gamepad1.dpadRightWasPressed()) turretCorrection += 2;
+
+            if (gamepad1.startWasPressed()) {
+                robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 22, AngleUnit.RADIANS, Math.toRadians(-90)));
+            }
 
             if (gamepad1.leftBumperWasPressed()) {
                 shooterOn = !shooterOn;
@@ -84,16 +83,11 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
                 }
             }
 
-            if (gamepad1.startWasPressed()) {
-                robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 124, AngleUnit.RADIANS, Math.toRadians(90)));
-            }
-
             if (shooterOn) {
                 robot.intake.gateOpen();
                 robot.shooter.setShooterByDis(distance + distanceCorrection);
                 robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
-            }
-            else {
+            } else {
                 robot.intake.gateClose();
                 robot.shooter.shooterHold();
                 robot.shooter.turretToDegree(0);

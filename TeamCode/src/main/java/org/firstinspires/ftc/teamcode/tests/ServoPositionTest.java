@@ -80,7 +80,10 @@ public class ServoPositionTest extends LinearOpMode {
                 downHold = false;
             }
 
-            poses[index] = Math.min(1.0, Math.max(0.0, (gamepad1.right_trigger - gamepad1.left_trigger) / 1300 + poses[index]));
+//            poses[index] = Math.min(1.0, Math.max(0.0, (gamepad1.right_trigger - gamepad1.left_trigger) / 1300 + poses[index]));
+            if(gamepad1.aWasPressed()) poses[index] -= 0.01;
+            if(gamepad1.yWasPressed()) poses[index] += 0.01;
+            poses[index] = Math.min(1.0, Math.max(0.0, poses[index]));
 
             if (gamepad1.right_bumper) {
 //                servos[index].setPwmEnable();

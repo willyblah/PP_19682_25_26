@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.tests;
+package org.firstinspires.ftc.teamcode.tele;
 
 import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
 import static org.firstinspires.ftc.teamcode.subsystems.Shooter.*;
@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 @TeleOp
 @Configurable
-public class A_1_AA_AS_Red extends LinearOpMode {
+public class A_2_AA_AS_Red extends LinearOpMode {
     Robot robot = new Robot();
     double targetX = 136.5, targetY = 8, vx, vy;
     int turretTargetHeading = 0;
@@ -71,21 +71,21 @@ public class A_1_AA_AS_Red extends LinearOpMode {
             }
             distance = Math.abs(Math.hypot(targetY - current.getY(DistanceUnit.INCH), targetX - current.getX(DistanceUnit.INCH)));
 
-            if (gamepad1.dpadUpWasPressed()) distanceCorrection += 2;
-            if (gamepad1.dpadDownWasPressed()) distanceCorrection -= 2;
+            if (gamepad2.dpadUpWasPressed()) distanceCorrection += 2;
+            if (gamepad2.dpadDownWasPressed()) distanceCorrection -= 2;
 
-            if (gamepad1.dpadLeftWasPressed()) turretCorrection -= 2;
-            if (gamepad1.dpadRightWasPressed()) turretCorrection += 2;
-
-            if (gamepad1.startWasPressed()) {
-                robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 22, AngleUnit.RADIANS, Math.toRadians(-90)));
-            }
+            if (gamepad2.dpadLeftWasPressed()) turretCorrection -= 2;
+            if (gamepad2.dpadRightWasPressed()) turretCorrection += 2;
 
             if (gamepad1.leftBumperWasPressed()) {
                 shooterOn = !shooterOn;
                 if (shooterOn) {
                     hoodCorrection = 0;
                 }
+            }
+
+            if (gamepad1.startWasPressed()) {
+                robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 22, AngleUnit.RADIANS, Math.toRadians(-90)));
             }
 
             if (shooterOn) {

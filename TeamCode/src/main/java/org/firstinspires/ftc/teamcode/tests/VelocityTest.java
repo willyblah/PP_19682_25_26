@@ -20,9 +20,13 @@ import org.firstinspires.ftc.teamcode.subsystems.Robot;
 public class VelocityTest extends LinearOpMode {
     Robot robot = new Robot();
     JoinedTelemetry joinedTele;
-    double targetX = 136.5, targetY = 8, vx, vy;
+    double targetX = 136.5, targetY = 8;
     double distance;
     boolean shootOn = false;
+    double targetATAN, drivetrainHeading;
+    int turretTargetHeading = 0;
+    int turretCorrection = 0;
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -38,6 +42,13 @@ public class VelocityTest extends LinearOpMode {
             robot.drivetrain.drive(gamepad1, 1);
             Pose2D current = robot.drivetrain.getPosition();
             distance = Math.abs(Math.hypot(targetY - current.getY(DistanceUnit.INCH), targetX - current.getX(DistanceUnit.INCH)));
+            drivetrainHeading = current.getHeading(AngleUnit.DEGREES);
+            targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
+            if (Math.abs(targetATAN - drivetrainHeading) <= 175) {
+                turretTargetHeading = (int) (targetATAN - drivetrainHeading);
+            } else {
+                turretTargetHeading = 0;
+            }
 
 
             if (gamepad1.dpadUpWasPressed()) VELOCITY += 20;
@@ -45,22 +56,30 @@ public class VelocityTest extends LinearOpMode {
             if (gamepad1.dpadLeftWasPressed()) IN_POWER += 0.01;
             if (gamepad1.dpadRightWasPressed()) IN_POWER -= 0.01;
             IN_POWER = Math.max(0, Math.min(IN_POWER, 1));
-            if (gamepad1.bWasPressed()) shootOn = !shootOn;
-
-            if (shootOn)robot.shooter.setShooterVelocity(VELOCITY);
-            else robot.shooter.shooterStop();
 
             if (gamepad1.yWasPressed()) POSITION += 0.01;
             if (gamepad1.aWasPressed()) POSITION -= 0.01;
             POSITION = Math.max(0, Math.min(POSITION, 1));
 
+            if (gamepad1.xWasPressed()) turretCorrection -= 2;
+            if (gamepad1.bWasPressed()) turretCorrection += 2;
+
             if (gamepad1.right_trigger > 0) robot.intake.intakeFire(IN_POWER);
             else robot.intake.intakeStop();
 
-            if (gamepad1.right_bumper) robot.intake.gateOpen();
-            if (gamepad1.left_bumper) robot.intake.gateClose();
+            if (gamepad1.rightBumperWasPressed()) {
+                shootOn = true;
+                robot.intake.gateOpen();
+                robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
+            }
+            if (gamepad1.leftBumperWasPressed()) {
+                robot.intake.gateClose();
+                shootOn = false;
+                robot.shooter.turretToDegree(0);
+            }
 
-
+            if (shootOn)robot.shooter.setShooterVelocity(VELOCITY);
+            else robot.shooter.shooterStop();
             robot.shooter.panelTo(POSITION);
 
             joinedTele.addData("distance", distance);

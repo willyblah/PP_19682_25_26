@@ -31,10 +31,10 @@ public class Drivetrain {
         leftFront.setDirection(DcMotorEx.Direction.REVERSE);
         leftBack.setDirection(DcMotorEx.Direction.REVERSE);
 
-//        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
-//        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
+        rightBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
 
         pinPoint.setOffsets(-141.5, 48, DistanceUnit.MM);
         pinPoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
@@ -87,7 +87,7 @@ public class Drivetrain {
         rightBack.setPower(rightBackPower * p);
     }
 
-    public void shootOnMoving(boolean shootingPre){
+    public void MovingPowerBehavior(boolean shootingPre){
         if (!shootingPre){
             leftFront.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
             leftBack.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.FLOAT);
