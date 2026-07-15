@@ -116,7 +116,7 @@ public class BLUE_CLOSE_21 extends OpMode {
 
                         // 第一次闸门cycle
                         new InstantCommand(() -> robot.intake.intakeIn()),
-                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE),
+                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE_CONTROL, BLUE_CLOSE_INTAKE_GATE),
                         new WaitCommand(INTAKE_TIME),
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
@@ -134,7 +134,7 @@ public class BLUE_CLOSE_21 extends OpMode {
 
                         // 第二次闸门cycle
                         new InstantCommand(() -> robot.intake.intakeIn()),
-                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE),
+                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE_CONTROL, BLUE_CLOSE_INTAKE_GATE),
                         new WaitCommand(INTAKE_TIME),
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
@@ -152,7 +152,7 @@ public class BLUE_CLOSE_21 extends OpMode {
 
                         // 第三次闸门cycle
                         new InstantCommand(() -> robot.intake.intakeIn()),
-                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE),
+                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE_CONTROL, BLUE_CLOSE_INTAKE_GATE),
                         new WaitCommand(INTAKE_TIME),
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
@@ -170,7 +170,7 @@ public class BLUE_CLOSE_21 extends OpMode {
 
                         // 第四次闸门cycle
                         new InstantCommand(() -> robot.intake.intakeIn()),
-                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE),
+                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE_CONTROL, BLUE_CLOSE_INTAKE_GATE),
                         new WaitCommand(INTAKE_TIME),
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
