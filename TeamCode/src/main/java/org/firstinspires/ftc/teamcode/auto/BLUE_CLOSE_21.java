@@ -112,14 +112,103 @@ public class BLUE_CLOSE_21 extends OpMode {
                         new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
+                        new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
 
+                        // 第一次闸门cycle
+                        new InstantCommand(() -> robot.intake.intakeIn()),
+                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE),
+                        new WaitCommand(INTAKE_TIME),
+                        new ParallelCommandGroup(
+                                new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
+                                new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
+                                new InstantCommand(() -> robot.intake.gateOpen()),
+                                new WaitCommand(AUTO_CLOSE_WAIT_FOR_SHOOT),
+                                new DriveCurrentToPoint(follower,
+                                        BLUE_CLOSE_SHOOT_INTAKE_GATE
+                                )
+                        ),
+                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new WaitCommand(TOTAL_SHOOT_TIME),
+                        new InstantCommand(() -> robot.intake.gateClose()),
+                        new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
 
+                        // 第二次闸门cycle
+                        new InstantCommand(() -> robot.intake.intakeIn()),
+                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE),
+                        new WaitCommand(INTAKE_TIME),
+                        new ParallelCommandGroup(
+                                new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
+                                new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
+                                new InstantCommand(() -> robot.intake.gateOpen()),
+                                new WaitCommand(AUTO_CLOSE_WAIT_FOR_SHOOT),
+                                new DriveCurrentToPoint(follower,
+                                        BLUE_CLOSE_SHOOT_INTAKE_GATE
+                                )
+                        ),
+                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new WaitCommand(TOTAL_SHOOT_TIME),
+                        new InstantCommand(() -> robot.intake.gateClose()),
+                        new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
 
-                        new ParallelRaceGroup(),
-                        new ParallelCommandGroup(),
+                        // 第三次闸门cycle
+                        new InstantCommand(() -> robot.intake.intakeIn()),
+                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE),
+                        new WaitCommand(INTAKE_TIME),
+                        new ParallelCommandGroup(
+                                new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
+                                new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
+                                new InstantCommand(() -> robot.intake.gateOpen()),
+                                new WaitCommand(AUTO_CLOSE_WAIT_FOR_SHOOT),
+                                new DriveCurrentToPoint(follower,
+                                        BLUE_CLOSE_SHOOT_INTAKE_GATE
+                                )
+                        ),
+                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new WaitCommand(TOTAL_SHOOT_TIME),
+                        new InstantCommand(() -> robot.intake.gateClose()),
+                        new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
 
+                        // 第四次闸门cycle
+                        new InstantCommand(() -> robot.intake.intakeIn()),
+                        new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE),
+                        new WaitCommand(INTAKE_TIME),
+                        new ParallelCommandGroup(
+                                new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
+                                new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
+                                new InstantCommand(() -> robot.intake.gateOpen()),
+                                new WaitCommand(AUTO_CLOSE_WAIT_FOR_SHOOT),
+                                new DriveCurrentToPoint(follower,
+                                        BLUE_CLOSE_SHOOT_INTAKE_GATE
+                                )
+                        ),
+                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new WaitCommand(TOTAL_SHOOT_TIME),
+                        new InstantCommand(() -> robot.intake.gateClose()),
+                        new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
 
+                        // 第一组球
+                        new InstantCommand(() -> robot.intake.intakeIn()),
+                        new DriveCurrentToPoint(follower,
+                                BLUE_CLOSE_INTAKE_FIRST_CONTROL,
+                                BLUE_CLOSE_INTAKE_FIRST_END
+                        ),
+                        new WaitCommand(INTAKE_TIME), // 等待吸取时间
+                        new ParallelCommandGroup(
+                                new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
+                                new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
+                                new InstantCommand(() -> robot.intake.gateOpen()),
+                                new WaitCommand(AUTO_CLOSE_WAIT_FOR_SHOOT),
+                                new DriveCurrentToPoint(follower,
+                                        BLUE_CLOSE_SHOOT_PRELOAD
+                                )
+                        ),
+                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new WaitCommand(TOTAL_SHOOT_TIME),
+                        new InstantCommand(() -> robot.intake.gateClose()),
+                        new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
 
+                        // 停靠
+                        new DriveCurrentToPoint(follower, BLUE_CLOSE_PARK),
 
                         new WaitCommand(100),
                         new InstantCommand(() -> autoEndX = follower.follower.getPose().getX()),

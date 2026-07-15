@@ -60,6 +60,7 @@ public class autoConstants {
     public static Pose BLUE_CLOSE_SHOOT_THIRD_ROW = new Pose(BLUE_CLOSE_SHOOT.getX(), BLUE_CLOSE_SHOOT.getY(), BLUE_CLOSE_SHOOT.getHeading());
     public static Pose BLUE_CLOSE_INTAKE_GATE = new Pose(14.5, 58.5, Math.toRadians(147.5));
     public static Pose BLUE_CLOSE_SHOOT_INTAKE_GATE = new Pose(BLUE_CLOSE_SHOOT.getX(), BLUE_CLOSE_SHOOT.getY(), BLUE_CLOSE_SHOOT.getHeading());
+    public static Pose BLUE_CLOSE_PARK = new Pose(20, 60, Math.toRadians(90));
 
     public static long AUTO_FAR_WAIT_FOR_SHOOT = 400;
     public static double FAR_FIRE_DISTANCE = 123;
