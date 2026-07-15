@@ -58,4 +58,8 @@ public class Intake {
         rGate.setPosition(R_GATE_CLOSE);
         curve.setPosition(CURVE_CLOSE);
     }
+
+    public void setCurve(double position) {
+        curve.setPosition(position);
+    }
 }

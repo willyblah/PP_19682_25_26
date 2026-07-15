@@ -22,18 +22,6 @@ public class Shooter {
 
     public static double targetVelocity = 0,  hoodCorrection = 0.045;
     public static double targetPanel = 0;
-    public static double RPM_A = -0.0004036439;
-    public static double RPM_B =  0.1057019636;
-    public static double RPM_C = -1.8999025678;
-    public static double RPM_D =  1153.0825835107;
-
-    public static double PANEL_A =  2.39680e-7;
-    public static double PANEL_B = -9.05038e-5;
-    public static double PANEL_C =  0.015501136306;
-    public static double PANEL_D = -0.302168750944;
-    public static double PANEL_MIN = 0.20;
-    public static double PANEL_MAX = 0.85;  // 从数据范围推导
-
 
     public void init(HardwareMap hardwareMap) {
         leftShooter = hardwareMap.get(DcMotorEx.class, LEFT_SHOOTER);

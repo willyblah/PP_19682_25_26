@@ -58,8 +58,6 @@ public class A_2_AA_AS extends LinearOpMode {
                 robot.intake.intakeStop();
             }
 
-
-
             Pose2D current = robot.drivetrain.getPosition();
             drivetrainHeading = current.getHeading(AngleUnit.DEGREES);
             vx = robot.drivetrain.pinPoint.getVelX(DistanceUnit.INCH);
@@ -94,6 +92,11 @@ public class A_2_AA_AS extends LinearOpMode {
                     hoodCorrection = 0;
                 }
             }
+
+            if (gamepad1.startWasPressed()) {
+                robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 22, AngleUnit.RADIANS, Math.toRadians(-90)));
+            }
+
 
             if (shooterOn) {
                 robot.intake.gateOpen();

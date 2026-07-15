@@ -4,6 +4,7 @@ import com.pedropathing.geometry.Pose;
 
 public class autoConstants {
     public static long TOTAL_SHOOT_TIME = 0;
+    public static long INTAKE_TIME = 500; // 毫秒
 
     public static long AUTO_CLOSE_WAIT_FOR_SHOOT = 0;
     public static double CLOSE_FIRE_DISTANCE = 52.0;
