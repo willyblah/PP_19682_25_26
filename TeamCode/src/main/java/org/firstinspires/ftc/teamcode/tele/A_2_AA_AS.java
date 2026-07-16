@@ -79,11 +79,24 @@ public class A_2_AA_AS extends LinearOpMode {
             }
             distance = Math.abs(Math.hypot(targetY - current.getY(DistanceUnit.INCH), targetX - current.getX(DistanceUnit.INCH)));
 
-            if (gamepad2.dpadUpWasPressed()) distanceCorrection += 2;
-            if (gamepad2.dpadDownWasPressed()) distanceCorrection -= 2;
+            if (gamepad2.dpadUpWasPressed()) {
+                distanceCorrection += 2;
+                gamepad1.rumble(200);
+            }
+            if (gamepad2.dpadDownWasPressed()) {
+                distanceCorrection -= 2;
+                gamepad1.rumble(200);
+            }
 
-            if (gamepad2.dpadLeftWasPressed()) turretCorrection += 2;
-            if (gamepad2.dpadRightWasPressed()) turretCorrection -= 2;
+            if (gamepad2.dpadLeftWasPressed()) {
+                turretCorrection += 2;
+                gamepad1.rumble(200);
+            }
+            if (gamepad2.dpadRightWasPressed()) {
+                turretCorrection -= 2;
+                gamepad1.rumble(200);
+            }
+
             if (gamepad1.yWasPressed())  movingShoot = !movingShoot;
 
             if (gamepad1.leftBumperWasPressed()) {
