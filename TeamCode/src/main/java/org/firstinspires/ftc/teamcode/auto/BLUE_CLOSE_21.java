@@ -7,6 +7,7 @@ import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
 import com.arcrobotics.ftclib.command.ParallelCommandGroup;
+import com.arcrobotics.ftclib.command.ParallelDeadlineGroup;
 import com.arcrobotics.ftclib.command.ParallelRaceGroup;
 import com.arcrobotics.ftclib.command.SequentialCommandGroup;
 import com.arcrobotics.ftclib.command.WaitCommand;
@@ -60,6 +61,9 @@ public class BLUE_CLOSE_21 extends OpMode {
     public void init_loop() {
         follower.follower.update();
         drawOnlyCurrent();
+        telemetryM.addData("posX:",follower.follower.getPose().getX());
+        telemetryM.addData("posY:",follower.follower.getPose().getY());
+        telemetryM.addData("heading:",follower.follower.getPose().getHeading());
         telemetryM.update();
     }
 
@@ -74,6 +78,10 @@ public class BLUE_CLOSE_21 extends OpMode {
         autoEndH = follower.follower.getPose().getHeading();
         teleOpTargetX = BLUE_TARGET_X;
         teleOpTargetY = BLUE_TARGET_Y;
+
+        telemetryM.addData("posX:",follower.follower.getPose().getX());
+        telemetryM.addData("posY:",follower.follower.getPose().getY());
+        telemetryM.addData("heading:",follower.follower.getPose().getHeading());
         telemetryM.update();
     }
 
@@ -100,15 +108,18 @@ public class BLUE_CLOSE_21 extends OpMode {
                                 BLUE_CLOSE_INTAKE_SECOND_END
                         ),
                         new WaitCommand(INTAKE_TIME), // 等待吸取时间
+                        new InstantCommand(() -> robot.intake.intakeStop()),
+                        // 移动到发射位置
                         new ParallelCommandGroup(
                             new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
                             new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
-                            new InstantCommand(() -> robot.intake.gateOpen()),
-                            new WaitCommand(AUTO_CLOSE_WAIT_FOR_SHOOT),
                             new DriveCurrentToPoint(follower,
                                     BLUE_CLOSE_SHOOT_PRELOAD
                             )
                         ),
+
+                        // 发射第二组球
+                        new InstantCommand(() -> robot.intake.gateOpen()),
                         new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
@@ -118,15 +129,17 @@ public class BLUE_CLOSE_21 extends OpMode {
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new DriveCurrentToPoint(follower, BLUE_CLOSE_INTAKE_GATE_CONTROL, BLUE_CLOSE_INTAKE_GATE),
                         new WaitCommand(INTAKE_TIME),
+                        new InstantCommand(() -> robot.intake.intakeStop()),
+
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
                                 new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
-                                new InstantCommand(() -> robot.intake.gateOpen()),
-                                new WaitCommand(AUTO_CLOSE_WAIT_FOR_SHOOT),
                                 new DriveCurrentToPoint(follower,
                                         BLUE_CLOSE_SHOOT_INTAKE_GATE
                                 )
                         ),
+
+                        new InstantCommand(() -> robot.intake.gateOpen()),
                         new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
