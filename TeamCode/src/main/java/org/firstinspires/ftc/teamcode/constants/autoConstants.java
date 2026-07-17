@@ -10,6 +10,7 @@ public class autoConstants {
     public static double CLOSE_FIRE_DISTANCE = 75.0;
     public static double CLOSE_FIRE_DISTANCE_LAST = 60.0;
     public static double CLOSE_FIRE_INTAKE_POWER = 0.8;
+    public static double FAR_FIRE_INTAKE_POWER = 0.5;
     public static double CLOSE_HOLD_DISTANCE = CLOSE_FIRE_DISTANCE; // 40.0;
 
     public static double RED_CLOSE_FIRE_TURRET = 45;
@@ -66,7 +67,7 @@ public class autoConstants {
     public static Pose BLUE_CLOSE_SHOOT_INTAKE_GATE = new Pose(BLUE_CLOSE_SHOOT.getX(), BLUE_CLOSE_SHOOT.getY(), BLUE_CLOSE_SHOOT.getHeading());
     public static Pose BLUE_CLOSE_PARK = new Pose(55, 65, Math.toRadians(180));
 
-    public static long AUTO_FAR_WAIT_FOR_SHOOT = 400;
+    public static long AUTO_FAR_WAIT_FOR_SHOOT = 800;
     public static double FAR_FIRE_DISTANCE = 123;
     public static double FAR_FIRE_DISTANCE_PRELOAD = 134.4;
     public static double FAR_HOLD_DISTANCE = 123;
@@ -88,10 +89,10 @@ public class autoConstants {
 
     public static double BLUE_FAR_TURRET = -69;
     public static Pose BLUE_FAR_START = new Pose(59.72, 12.4, Math.toRadians(180.0));
-    public static Pose BLUE_FAR_SHOOT = new Pose(BLUE_FAR_START.getX(), BLUE_FAR_START.getY(), BLUE_FAR_START.getHeading());
-    public static Pose BLUE_FAR_INTAKE_HP_1_START = new Pose(27.5, 19.1, Math.toRadians(180.0));
-    public static Pose BLUE_FAR_INTAKE_HP_1_MID = new Pose(13.8, 21.3, Math.toRadians(111.2));
-    public static Pose BLUE_FAR_INTAKE_HP_1_END = new Pose(10.2, 34.2, Math.toRadians(99.5));
+    public static Pose BLUE_FAR_SHOOT = new Pose(BLUE_FAR_START.getX(), BLUE_FAR_START.getY() + 1, BLUE_FAR_START.getHeading());
+    public static Pose BLUE_FAR_INTAKE_HP_1_START = new Pose(13, 13, Math.toRadians(180.0));
+    public static Pose BLUE_FAR_INTAKE_HP_1_MID = new Pose(12, 25, Math.toRadians(131));
+    public static Pose BLUE_FAR_INTAKE_HP_1_END = new Pose(11, 36, Math.toRadians(120));
     public static Pose BLUE_FAR_SHOOT_HP = new Pose(BLUE_FAR_SHOOT.getX(), BLUE_FAR_SHOOT.getY(), BLUE_FAR_SHOOT.getHeading());
     public static Pose BLUE_FAR_SHOOT_TUNNEL = new Pose(BLUE_FAR_SHOOT.getX(), BLUE_FAR_SHOOT.getY(), BLUE_FAR_SHOOT.getHeading());
     public static Pose BLUE_FAR_PARK = new Pose(37.8, 16.8, Math.toRadians(180.0));

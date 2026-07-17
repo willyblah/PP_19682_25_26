@@ -84,7 +84,7 @@ public class BLUE_FAR_18 extends OpMode {
                         new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_FAR_TURRET)),
                         new InstantCommand(() -> robot.intake.gateOpen()),
                         new WaitCommand(AUTO_FAR_WAIT_FOR_SHOOT),
-                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new InstantCommand(() -> robot.intake.intakeFire(FAR_FIRE_INTAKE_POWER)),
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
 
@@ -96,62 +96,72 @@ public class BLUE_FAR_18 extends OpMode {
                         // 发射第三排
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT),
                         new InstantCommand(() -> robot.intake.gateOpen()),
-                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new InstantCommand(() -> robot.intake.intakeFire(FAR_FIRE_INTAKE_POWER)),
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
 
-                        // 第一次
+
+                        // ============= cycles =============
+
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
                                 new WaitCommand(2500),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
+                                new SequentialCommandGroup(
+                                    new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START),
+                                    new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_MID),
+                                    new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                )
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
                         new InstantCommand(() -> robot.intake.gateOpen()),
-                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new InstantCommand(() -> robot.intake.intakeFire(FAR_FIRE_INTAKE_POWER)),
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
 
-                        // 第二次
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
                                 new WaitCommand(2500),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
-
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START),
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_MID),
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
                         new InstantCommand(() -> robot.intake.gateOpen()),
-                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new InstantCommand(() -> robot.intake.intakeFire(FAR_FIRE_INTAKE_POWER)),
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
 
-                        // 第三次
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
                                 new WaitCommand(2500),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
-
+                                new SequentialCommandGroup(
+                                        new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START),
+                                        new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_MID),
+                                        new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                )
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
                         new InstantCommand(() -> robot.intake.gateOpen()),
-                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new InstantCommand(() -> robot.intake.intakeFire(FAR_FIRE_INTAKE_POWER)),
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
 
-                        // 第四次
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
                                 new WaitCommand(2500),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
-
+                                new SequentialCommandGroup(
+                                        new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START),
+                                        new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_MID),
+                                        new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                )
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
                         new InstantCommand(() -> robot.intake.gateOpen()),
-                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
+                        new InstantCommand(() -> robot.intake.intakeFire(FAR_FIRE_INTAKE_POWER)),
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
 
