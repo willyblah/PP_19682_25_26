@@ -6,6 +6,7 @@ import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_FIRST_END;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_GATE;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_GATE_CONTROL;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_GATE_END;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_SECOND_CONTROL;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_SECOND_END;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_PARK;
@@ -153,11 +154,17 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                         new ParallelCommandGroup(
                             new InstantCommand(() -> robot.intake.intakeIn()),
                             new ParallelDeadlineGroup(
-                                    new WaitCommand(3000),
+                                    new WaitCommand(2000),
                                     new DriveCurrentToPoint(follower,
                                             BLUE_CLOSE_INTAKE_GATE_CONTROL,
                                             BLUE_CLOSE_INTAKE_GATE)
                                     )
+                        ),
+
+                        new ParallelDeadlineGroup(
+                                new WaitCommand(1500),
+                                new DriveCurrentToPoint(follower,
+                                        BLUE_CLOSE_INTAKE_GATE_END)
                         ),
 
                         new ParallelCommandGroup(
@@ -256,8 +263,6 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                         new InstantCommand(() -> robot.intake.gateOpen()),
                         new InstantCommand(() -> robot.intake.intakeFire(CLOSE_FIRE_INTAKE_POWER)),
                         new WaitCommand(TOTAL_SHOOT_TIME),
-                        new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
-
                         // 停靠
                         new DriveCurrentToPoint(follower, BLUE_CLOSE_PARK),
 
