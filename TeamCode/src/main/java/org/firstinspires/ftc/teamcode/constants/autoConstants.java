@@ -68,7 +68,7 @@ public class autoConstants {
 
     public static long AUTO_FAR_WAIT_FOR_SHOOT = 400;
     public static double FAR_FIRE_DISTANCE = 123;
-    public static double FAR_FIRE_DISTANCE_PRELOAD = 132;
+    public static double FAR_FIRE_DISTANCE_PRELOAD = 134.4;
     public static double FAR_HOLD_DISTANCE = 123;
     public static double RED_FAR_TURRET = 65;
     public static double RED_FAR_TURRET_PRELOAD = 65;
