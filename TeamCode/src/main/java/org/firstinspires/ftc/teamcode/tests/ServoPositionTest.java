@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.tests;
 
 import static org.firstinspires.ftc.teamcode.constants.robotConfigs.CURVE;
+import static org.firstinspires.ftc.teamcode.constants.robotConfigs.LIGHT;
 import static org.firstinspires.ftc.teamcode.constants.robotConfigs.L_GATE;
 import static org.firstinspires.ftc.teamcode.constants.robotConfigs.LEFT_BACK;
 import static org.firstinspires.ftc.teamcode.constants.robotConfigs.LEFT_FRONT;
@@ -22,7 +23,7 @@ public class ServoPositionTest extends LinearOpMode {
     private DcMotorEx rightBack = null;
 
     private double x, y, rx, p;
-    private String[] names = {L_GATE, R_GATE, PANEL, CURVE};
+    private String[] names = {L_GATE, R_GATE, PANEL, CURVE, LIGHT};
     private int index = 0, servoNum = names.length;
     private Servo[] servos = new Servo[servoNum];
     private double[] poses = new double[servoNum];

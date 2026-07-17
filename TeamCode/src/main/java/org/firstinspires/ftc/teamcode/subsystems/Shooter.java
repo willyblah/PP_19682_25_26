@@ -18,7 +18,7 @@ public class Shooter {
     public DcMotorEx leftShooter;
     public DcMotorEx rightShooter;
     public DcMotorEx turret;
-    public Servo panel;
+    public Servo panel, light;
 
     public static double targetVelocity = 0,  hoodCorrection = 0.045;
     public static double targetPanel = 0;
@@ -28,6 +28,7 @@ public class Shooter {
         rightShooter = hardwareMap.get(DcMotorEx.class, RIGHT_SHOOTER);
         turret = hardwareMap.get(DcMotorEx.class, TURRET);
         panel = hardwareMap.get(Servo.class, PANEL);
+        light = hardwareMap.get(Servo.class, LIGHT);
 
         leftShooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightShooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -63,6 +64,7 @@ public class Shooter {
     }
 
     public void shooterHold() {
+        light.setPosition(0);
         leftShooter.setVelocity(800);
         rightShooter.setVelocity(800);
     }
@@ -92,6 +94,7 @@ public class Shooter {
     }
 
     public void setShooterByDis(double distance) {
+        light.setPosition(0.61);
         leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance);

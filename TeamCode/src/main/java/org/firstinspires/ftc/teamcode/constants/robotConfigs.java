@@ -7,6 +7,7 @@ public class robotConfigs {
     public static final String RIGHT_BACK = "rb";
 
     public static final String PIN_POINT = "pp";
+    public static final String LIGHT = "light";
 
     public static final String LEFT_SHOOTER = "lshoot";
     public static final String RIGHT_SHOOTER = "rshoot";
