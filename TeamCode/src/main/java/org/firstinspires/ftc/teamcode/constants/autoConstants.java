@@ -68,7 +68,7 @@ public class autoConstants {
 
     public static long AUTO_FAR_WAIT_FOR_SHOOT = 400;
     public static double FAR_FIRE_DISTANCE = 123;
-    public static double FAR_FIRE_DISTANCE_PRELOAD = 132;
+    public static double FAR_FIRE_DISTANCE_PRELOAD = 134.4;
     public static double FAR_HOLD_DISTANCE = 123;
     public static double RED_FAR_TURRET = 65;
     public static double RED_FAR_TURRET_PRELOAD = 65;
@@ -86,18 +86,17 @@ public class autoConstants {
     public static Pose RED_FAR_INTAKE_TUNNEL_START = new Pose(90.0, 26.5, Math.toRadians(0.0));
     public static Pose RED_FAR_INTAKE_TUNNEL_END = new Pose(132.0, 26.5, Math.toRadians(15.0));
 
-    public static double BLUE_FAR_TURRET = -65;
-    public static double BLUE_FAR_TURRET_PRELOAD = -65;
-    public static Pose BLUE_FAR_START = new Pose(58.5, 7.4, Math.toRadians(180.0));
-    public static Pose BLUE_FAR_SHOOT = new Pose(59.0, 17.0, Math.toRadians(180.0));
-    public static Pose BLUE_FAR_INTAKE_HP_1_START = new Pose(24.0, 8.0, Math.toRadians(180.0));
-    public static Pose BLUE_FAR_INTAKE_HP_1_MID = new Pose(11.5, 9.0, Math.toRadians(-160.0));
-    public static Pose BLUE_FAR_INTAKE_HP_1_END = new Pose(12.5, 15.0, Math.toRadians(160.0));
+    public static double BLUE_FAR_TURRET = -69;
+    public static Pose BLUE_FAR_START = new Pose(59.72, 12.4, Math.toRadians(180.0));
+    public static Pose BLUE_FAR_SHOOT = new Pose(BLUE_FAR_START.getX(), BLUE_FAR_START.getY(), BLUE_FAR_START.getHeading());
+    public static Pose BLUE_FAR_INTAKE_HP_1_START = new Pose(27.5, 19.1, Math.toRadians(180.0));
+    public static Pose BLUE_FAR_INTAKE_HP_1_MID = new Pose(13.8, 21.3, Math.toRadians(111.2));
+    public static Pose BLUE_FAR_INTAKE_HP_1_END = new Pose(10.2, 34.2, Math.toRadians(99.5));
     public static Pose BLUE_FAR_SHOOT_HP = new Pose(BLUE_FAR_SHOOT.getX(), BLUE_FAR_SHOOT.getY(), BLUE_FAR_SHOOT.getHeading());
     public static Pose BLUE_FAR_SHOOT_TUNNEL = new Pose(BLUE_FAR_SHOOT.getX(), BLUE_FAR_SHOOT.getY(), BLUE_FAR_SHOOT.getHeading());
-    public static Pose BLUE_FAR_PARK = new Pose(48.0, 27.0, Math.toRadians(180.0));
-    public static Pose BLUE_FAR_INTAKE_THIRD_CONTROL = new Pose(58.0, 38.0);
-    public static Pose BLUE_FAR_INTAKE_THIRD_END = new Pose(26.0, 34.0, Math.toRadians(180.0));
+    public static Pose BLUE_FAR_PARK = new Pose(37.8, 16.8, Math.toRadians(180.0));
+    public static Pose BLUE_FAR_INTAKE_THIRD_CONTROL = new Pose(46.5, 39.7);
+    public static Pose BLUE_FAR_INTAKE_THIRD_END = new Pose(14.4, 39, Math.toRadians(180.0));
     public static Pose BLUE_FAR_INTAKE_TUNNEL_START = new Pose(54.0, 26.5, Math.toRadians(180.0));
     public static Pose BLUE_FAR_INTAKE_TUNNEL_END = new Pose(12.0, 26.5, Math.toRadians(165.0));
 }

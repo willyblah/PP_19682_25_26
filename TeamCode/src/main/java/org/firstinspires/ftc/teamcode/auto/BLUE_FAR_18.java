@@ -81,7 +81,7 @@ public class BLUE_FAR_18 extends OpMode {
                 new SequentialCommandGroup(
                         // 发射预载
                         new InstantCommand(() -> distance = FAR_FIRE_DISTANCE_PRELOAD),
-                        new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_FAR_TURRET_PRELOAD)),
+                        new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_FAR_TURRET)),
                         new InstantCommand(() -> robot.intake.gateOpen()),
                         new WaitCommand(AUTO_FAR_WAIT_FOR_SHOOT),
                         new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
@@ -103,8 +103,8 @@ public class BLUE_FAR_18 extends OpMode {
                         // 第一次
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
-                                new WaitCommand(1800),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                new WaitCommand(2500),
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
@@ -116,8 +116,9 @@ public class BLUE_FAR_18 extends OpMode {
                         // 第二次
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
-                                new WaitCommand(1800),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                new WaitCommand(2500),
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
+
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
@@ -129,8 +130,9 @@ public class BLUE_FAR_18 extends OpMode {
                         // 第三次
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
-                                new WaitCommand(1800),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                new WaitCommand(2500),
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
+
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
@@ -142,8 +144,9 @@ public class BLUE_FAR_18 extends OpMode {
                         // 第四次
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
-                                new WaitCommand(1800),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                new WaitCommand(2500),
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
+
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
