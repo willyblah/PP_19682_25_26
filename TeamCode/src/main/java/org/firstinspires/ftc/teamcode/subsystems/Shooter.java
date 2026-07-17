@@ -110,8 +110,8 @@ public class Shooter {
         double v = targetVelocity;
         if (v < 1540.0) return 1.0;
         if (v < 1720.0) return 0.85;
-        if (v < 1800.0) return 0.80;
-        if (v < 1880.0) return 0.60;
+        if (v < 1800.0) return 0.60;
+//        if (v < 1880.0) return 0.60;
         return 0.50;
     }
 

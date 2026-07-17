@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 import static org.firstinspires.ftc.teamcode.constants.robotConfigs.*;
 import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -17,6 +18,7 @@ public class Intake {
         rGate = hardwareMap.get(Servo.class, R_GATE);
         curve = hardwareMap.get(Servo.class, CURVE);
         intake.setDirection(DcMotorEx.Direction.REVERSE);
+        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void intakeIn() {
@@ -37,6 +39,10 @@ public class Intake {
 
     public void intakeOut() {
         intake.setPower(-1);
+    }
+
+    public double getVelocity() {
+        return intake.getVelocity();
     }
 
     public void intakeOut(double power) {
