@@ -27,7 +27,12 @@ public class Constants {
             .translationalPIDFCoefficients(new PIDFCoefficients(0.0, 0.0, 0.0, 0.0))
             .headingPIDFCoefficients(new PIDFCoefficients(1.5, 0.0, 0.12, 0.02))
             .centripetalScaling(0.0005)
-            .predictiveBrakingCoefficients(new PredictiveBrakingCoefficients(0.08, 0.09636503920123833, 0.00165434089464806))
+            .predictiveBrakingCoefficients(
+                    new PredictiveBrakingCoefficients(
+                            0.08,
+                    0.09636503920123833,
+                    0.00165434089464806)
+                )
             ;
 
     public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);

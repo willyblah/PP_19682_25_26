@@ -18,8 +18,8 @@ public class robotConstants {
 
     public static double L_GATE_OPEN = 0.554;
     public static double L_GATE_CLOSE = 0.403;
-    public static double R_GATE_OPEN = 0.459;
-    public static double R_GATE_CLOSE = 0.580;
+    public static double R_GATE_OPEN = 0.5;
+    public static double R_GATE_CLOSE = 0.66;
     public static double CURVE_OPEN = 0.3; // 发射
     public static double CURVE_CLOSE = 0.65; // 关闭发射
 

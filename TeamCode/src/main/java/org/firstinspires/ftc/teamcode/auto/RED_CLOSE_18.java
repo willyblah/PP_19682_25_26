@@ -55,7 +55,7 @@ public class RED_CLOSE_18 extends OpMode {
         robot.autoInit(hardwareMap);
         telemetryM.update();
         redPathChains = new RedPathChains(follower.follower);
-        TOTAL_SHOOT_TIME = 350;
+        TOTAL_SHOOT_TIME = 450;
         Drawing.init();
     }
 
