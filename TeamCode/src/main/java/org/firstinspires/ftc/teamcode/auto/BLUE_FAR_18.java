@@ -104,9 +104,7 @@ public class BLUE_FAR_18 extends OpMode {
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
                                 new WaitCommand(2500),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_MID),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
@@ -119,9 +117,8 @@ public class BLUE_FAR_18 extends OpMode {
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
                                 new WaitCommand(2500),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_MID),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
+
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
@@ -134,9 +131,8 @@ public class BLUE_FAR_18 extends OpMode {
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
                                 new WaitCommand(2500),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_MID),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
+
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),
@@ -149,9 +145,8 @@ public class BLUE_FAR_18 extends OpMode {
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelRaceGroup(
                                 new WaitCommand(2500),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_MID),
-                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_END)
+                                new DriveCurrentToPoint(follower, BLUE_FAR_INTAKE_HP_1_START, BLUE_FAR_INTAKE_HP_1_MID, BLUE_FAR_INTAKE_HP_1_END)
+
                         ),
                         new InstantCommand(() -> robot.intake.intakeStop()),
                         new DriveCurrentToPoint(follower, BLUE_FAR_SHOOT_HP),

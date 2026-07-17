@@ -87,16 +87,16 @@ public class autoConstants {
     public static Pose RED_FAR_INTAKE_TUNNEL_END = new Pose(132.0, 26.5, Math.toRadians(15.0));
 
     public static double BLUE_FAR_TURRET = -69;
-    public static Pose BLUE_FAR_START = new Pose(12.4, 59.72, Math.toRadians(180.0));
+    public static Pose BLUE_FAR_START = new Pose(59.72, 12.4, Math.toRadians(180.0));
     public static Pose BLUE_FAR_SHOOT = new Pose(BLUE_FAR_START.getX(), BLUE_FAR_START.getY(), BLUE_FAR_START.getHeading());
-    public static Pose BLUE_FAR_INTAKE_HP_1_START = new Pose(19.1, 27.5, Math.toRadians(180.0));
-    public static Pose BLUE_FAR_INTAKE_HP_1_MID = new Pose(21.3, 13.8, Math.toRadians(111.2));
-    public static Pose BLUE_FAR_INTAKE_HP_1_END = new Pose(34.2, 10.2, Math.toRadians(99.5));
+    public static Pose BLUE_FAR_INTAKE_HP_1_START = new Pose(27.5, 19.1, Math.toRadians(180.0));
+    public static Pose BLUE_FAR_INTAKE_HP_1_MID = new Pose(13.8, 21.3, Math.toRadians(111.2));
+    public static Pose BLUE_FAR_INTAKE_HP_1_END = new Pose(10.2, 34.2, Math.toRadians(99.5));
     public static Pose BLUE_FAR_SHOOT_HP = new Pose(BLUE_FAR_SHOOT.getX(), BLUE_FAR_SHOOT.getY(), BLUE_FAR_SHOOT.getHeading());
     public static Pose BLUE_FAR_SHOOT_TUNNEL = new Pose(BLUE_FAR_SHOOT.getX(), BLUE_FAR_SHOOT.getY(), BLUE_FAR_SHOOT.getHeading());
-    public static Pose BLUE_FAR_PARK = new Pose(48.0, 27.0, Math.toRadians(180.0));
-    public static Pose BLUE_FAR_INTAKE_THIRD_CONTROL = new Pose(39.7, 46.5);
-    public static Pose BLUE_FAR_INTAKE_THIRD_END = new Pose(39, 14.4, Math.toRadians(180.0));
+    public static Pose BLUE_FAR_PARK = new Pose(37.8, 16.8, Math.toRadians(180.0));
+    public static Pose BLUE_FAR_INTAKE_THIRD_CONTROL = new Pose(46.5, 39.7);
+    public static Pose BLUE_FAR_INTAKE_THIRD_END = new Pose(14.4, 39, Math.toRadians(180.0));
     public static Pose BLUE_FAR_INTAKE_TUNNEL_START = new Pose(54.0, 26.5, Math.toRadians(180.0));
     public static Pose BLUE_FAR_INTAKE_TUNNEL_END = new Pose(12.0, 26.5, Math.toRadians(165.0));
 }

@@ -136,7 +136,7 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                                 new SequentialCommandGroup(
                                         new WaitCommand(400),
                                         new InstantCommand(() -> robot.intake.intakeStop())
-                                        ),
+                                ),
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
                                 new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
                                 new DriveCurrentToPoint(follower,
