@@ -18,7 +18,6 @@ public class Intake {
         rGate = hardwareMap.get(Servo.class, R_GATE);
         curve = hardwareMap.get(Servo.class, CURVE);
         intake.setDirection(DcMotorEx.Direction.REVERSE);
-        intake.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void intakeIn() {
@@ -39,10 +38,6 @@ public class Intake {
 
     public void intakeOut() {
         intake.setPower(-1);
-    }
-
-    public double getVelocity() {
-        return intake.getVelocity();
     }
 
     public void intakeOut(double power) {
