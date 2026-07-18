@@ -22,7 +22,7 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
     double targetX = 136.5, targetY = 136, vx, vy;
     int turretTargetHeading = 0;
     double targetATAN, drivetrainHeading;
-    boolean shooterOn = false;
+    boolean shooterOn = false, movingShoot = false;
     double distance;
     int turretCorrection = 0;
     double distanceCorrection = 2;
@@ -61,8 +61,14 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
             vx = robot.drivetrain.pinPoint.getVelX(DistanceUnit.INCH);
             vy = robot.drivetrain.pinPoint.getVelY(DistanceUnit.INCH);
             at = Math.abs(Math.hypot(136 - current.getY(DistanceUnit.INCH), 136.5 - current.getX(DistanceUnit.INCH))) * 0.00575 + 0.4;
-            targetX = 136.5 - at * vx;
-            targetY = 136 - at * vy;
+            if (movingShoot){
+                targetX = 136.5 - at * vx;
+                targetY = 136 - at * vy;
+            } else {
+                targetX = 136.5;
+                targetY = 136;
+            }
+
             targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
             if (Math.abs(targetATAN - drivetrainHeading) <= 175) {
                 turretTargetHeading = (int) (targetATAN - drivetrainHeading);
@@ -88,16 +94,20 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
                 robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 124, AngleUnit.RADIANS, Math.toRadians(90)));
             }
 
+            if (gamepad1.yWasPressed())  movingShoot = !movingShoot;
+
+
             if (shooterOn) {
                 robot.intake.gateOpen();
                 robot.shooter.setShooterByDis(distance + distanceCorrection);
-                robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
             }
             else {
                 robot.intake.gateClose();
                 robot.shooter.shooterHold();
                 robot.shooter.turretToDegree(0);
             }
+            robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
+
 
             joinedTele.addData("x", current.getX(DistanceUnit.INCH));
             joinedTele.addData("y", current.getY(DistanceUnit.INCH));
