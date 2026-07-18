@@ -22,7 +22,7 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
     double targetX = 136.5, targetY = 136, vx, vy;
     int turretTargetHeading = 0;
     double targetATAN, drivetrainHeading;
-    boolean shooterOn = false, movingShoot = false;
+    boolean shooterOn = false, movingShoot = false, shootingPre = false;
     double distance;
     int turretCorrection = 0;
     double distanceCorrection = 2;
@@ -80,8 +80,9 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
             if (gamepad2.dpadUpWasPressed()) distanceCorrection += 2;
             if (gamepad2.dpadDownWasPressed()) distanceCorrection -= 2;
 
-            if (gamepad2.dpadLeftWasPressed()) turretCorrection -= 2;
-            if (gamepad2.dpadRightWasPressed()) turretCorrection += 2;
+            if (gamepad2.dpadLeftWasPressed()) turretCorrection += 2;
+            if (gamepad2.dpadRightWasPressed()) turretCorrection -= 2;
+            if (gamepad1.yWasPressed())  movingShoot = !movingShoot;
 
             if (gamepad1.leftBumperWasPressed()) {
                 shooterOn = !shooterOn;
@@ -94,20 +95,19 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
                 robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 124, AngleUnit.RADIANS, Math.toRadians(90)));
             }
 
-            if (gamepad1.yWasPressed())  movingShoot = !movingShoot;
-
 
             if (shooterOn) {
                 robot.intake.gateOpen();
                 robot.shooter.setShooterByDis(distance + distanceCorrection);
-            }
-            else {
+//                robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
+            } else {
                 robot.intake.gateClose();
                 robot.shooter.shooterHold();
-                robot.shooter.turretToDegree(0);
+//                robot.shooter.turretToDegree(0);
             }
+//            robot.drivetrain.shootOnMoving(shootingPre);
             robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
-
+            robot.shooter.setShooterByDisShow(distance + distanceCorrection);
 
             joinedTele.addData("x", current.getX(DistanceUnit.INCH));
             joinedTele.addData("y", current.getY(DistanceUnit.INCH));
@@ -115,6 +115,7 @@ public class A_2_AA_AS_Blue extends LinearOpMode {
             joinedTele.addData("target", targetATAN);
             joinedTele.addData("turretTo", turretTargetHeading);
             joinedTele.addData("turretDegree", robot.shooter.getTurretDegree());
+            joinedTele.addData("movingShoot", movingShoot);
             joinedTele.addData("distance", distance);
             joinedTele.addData("shooterT", targetVelocity);
             joinedTele.addData("shooterVL", robot.shooter.leftShooter.getVelocity());
