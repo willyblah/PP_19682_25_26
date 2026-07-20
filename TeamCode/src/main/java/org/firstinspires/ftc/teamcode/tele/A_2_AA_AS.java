@@ -52,7 +52,6 @@ public class A_2_AA_AS extends LinearOpMode {
             } else if (gamepad1.rightBumperWasPressed()) {
                 timer.reset();
             } else if (gamepad1.right_bumper) {
-                if (timer.milliseconds() > 180) hoodCorrection = 0.045;
                 robot.intake.intakeIn(robot.shooter.calculateIntakePower());
             } else {
                 robot.intake.intakeStop();
@@ -72,25 +71,22 @@ public class A_2_AA_AS extends LinearOpMode {
             }
 
             targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
-            if (Math.abs(targetATAN - drivetrainHeading) <= 175) {
+            if (Math.abs(targetATAN - drivetrainHeading) <= TURRET_ABS_RANGE_DEGREE) {
                 turretTargetHeading = (int) (targetATAN - drivetrainHeading);
             } else {
                 turretTargetHeading = 0;
             }
             distance = Math.abs(Math.hypot(targetY - current.getY(DistanceUnit.INCH), targetX - current.getX(DistanceUnit.INCH)));
 
-            if (gamepad2.dpadUpWasPressed()) distanceCorrection += 2;
-            if (gamepad2.dpadDownWasPressed()) distanceCorrection -= 2;
+            if (gamepad2.dpadUpWasPressed()) distanceCorrection += 1;
+            if (gamepad2.dpadDownWasPressed()) distanceCorrection -= 1;
 
-            if (gamepad2.dpadLeftWasPressed()) turretCorrection += 2;
-            if (gamepad2.dpadRightWasPressed()) turretCorrection -= 2;
+            if (gamepad2.dpadLeftWasPressed()) turretCorrection += 1;
+            if (gamepad2.dpadRightWasPressed()) turretCorrection -= 1;
             if (gamepad1.yWasPressed())  movingShoot = !movingShoot;
 
             if (gamepad1.leftBumperWasPressed()) {
                 shooterOn = !shooterOn;
-                if (shooterOn) {
-                    hoodCorrection = 0;
-                }
             }
 
             if (gamepad1.startWasPressed()) {

@@ -20,7 +20,7 @@ public class Shooter {
     public DcMotorEx turret;
     public Servo panel, light;
 
-    public static double targetVelocity = 0,  hoodCorrection = 0.045;
+    public static double targetVelocity = 0;
     public static double targetPanel = 0;
 
     public void init(HardwareMap hardwareMap) {
@@ -97,8 +97,8 @@ public class Shooter {
         light.setPosition(0.61);
         leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
-        targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance);
-        targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance);
+        targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance - 2);
+        targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance - 2);
         setShooter(Range.clip(targetPanel, PANEL_MIN, PANEL_MAX), targetVelocity);
     }
     public void setShooterByDisShow(double distance) {
@@ -108,11 +108,10 @@ public class Shooter {
 
     public double calculateIntakePower() {
         double v = targetVelocity;
-        if (v < 1540.0) return 1.0;
+        if (v < 1540.0) return 1;
         if (v < 1720.0) return 0.85;
-        if (v < 1800.0) return 0.60;
-//        if (v < 1880.0) return 0.60;
-        return 0.50;
+        if (v < 1800.0) return 0.85;//0.75
+        return 0.85;//0.65
     }
 
     public double f(double a, double b, double c, double d, double x) {

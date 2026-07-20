@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.tele;
 
 import static org.firstinspires.ftc.teamcode.constants.robotConstants.CURVE_CLOSE;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.TURRET_ABS_RANGE_DEGREE;
 import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndH;
 import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndX;
 import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndY;
-import static org.firstinspires.ftc.teamcode.subsystems.Shooter.hoodCorrection;
 import static org.firstinspires.ftc.teamcode.subsystems.Shooter.targetVelocity;
 
 import com.bylazar.configurables.annotations.Configurable;
@@ -26,16 +26,13 @@ public class A_1_AA_AS extends LinearOpMode {
     double targetX = 136.5, targetY = 8, vx, vy;
     int turretTargetHeading = 0;
     double targetATAN, drivetrainHeading;
-    boolean shooterOn = false, movingShoot = false, shootingPre = false;
+    boolean shooterOn = false, movingShoot = false;
     double distance;
     int turretCorrection = 0;
     double distanceCorrection = 2;
-    long gap = 0;
     ElapsedTime timer = new ElapsedTime();
     JoinedTelemetry joinedTele;
     public static double at = 0.64;
-    public double CURVE_pos;
-
     @Override
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
@@ -54,16 +51,11 @@ public class A_1_AA_AS extends LinearOpMode {
                 shooterOn = false;
             } else if (gamepad1.left_trigger > 0.1) {
                 robot.intake.intakeOut(gamepad1.left_trigger);
-            } else if (gamepad1.rightBumperWasPressed()) {
-                timer.reset();
             } else if (gamepad1.right_bumper) {
-                if (timer.milliseconds() > 180) hoodCorrection = 0.045;
                 robot.intake.intakeIn(robot.shooter.calculateIntakePower());
             } else {
                 robot.intake.intakeStop();
             }
-
-
 
             Pose2D current = robot.drivetrain.getPosition();
             drivetrainHeading = current.getHeading(AngleUnit.DEGREES);
@@ -79,7 +71,7 @@ public class A_1_AA_AS extends LinearOpMode {
             }
 
             targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
-            if (Math.abs(targetATAN - drivetrainHeading) <= 175) {
+            if (Math.abs(targetATAN - drivetrainHeading) <= TURRET_ABS_RANGE_DEGREE) {
                 turretTargetHeading = (int) (targetATAN - drivetrainHeading);
             } else {
                 turretTargetHeading = 0;
@@ -93,14 +85,8 @@ public class A_1_AA_AS extends LinearOpMode {
             if (gamepad1.dpadRightWasPressed()) turretCorrection -= 2;
             if (gamepad1.yWasPressed())  movingShoot = !movingShoot;
 
-//            if (gamepad1.xWasPressed()) CURVE_pos += 0.01;
-//            if (gamepad1.aWasPressed()) CURVE_pos -= 0.01;
-
             if (gamepad1.leftBumperWasPressed()) {
                 shooterOn = !shooterOn;
-                if (shooterOn) {
-                    hoodCorrection = 0;
-                }
             }
 
             if (gamepad1.startWasPressed()) {
@@ -111,14 +97,11 @@ public class A_1_AA_AS extends LinearOpMode {
                 robot.intake.gateOpen();
                 robot.shooter.setShooterByDis(distance + distanceCorrection);
                 robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
-//                robot.intake.setCurve(CURVE_pos);
             } else {
                 robot.intake.gateClose();
                 robot.shooter.shooterHold();
                 robot.shooter.turretToDegree(0);
-//                robot.intake.setCurve(CURVE_CLOSE);
             }
-//            robot.drivetrain.shootOnMoving(shootingPre);
             robot.shooter.setShooterByDisShow(distance + distanceCorrection);
 
             joinedTele.addData("x", current.getX(DistanceUnit.INCH));
@@ -136,7 +119,6 @@ public class A_1_AA_AS extends LinearOpMode {
             joinedTele.addData("distanceCorrection", distanceCorrection);
             joinedTele.addData("intakePower", robot.shooter.calculateIntakePower());
             joinedTele.addData("panel", robot.shooter.panel.getPosition());
-//            joinedTele.addData("CURVE_pos", CURVE_pos);
             joinedTele.update();
         }
     }

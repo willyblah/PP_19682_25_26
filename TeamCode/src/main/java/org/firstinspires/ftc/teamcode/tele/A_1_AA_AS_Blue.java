@@ -47,10 +47,7 @@ public class A_1_AA_AS_Blue extends LinearOpMode {
                 shooterOn = false;
             } else if (gamepad1.left_trigger > 0.1) {
                 robot.intake.intakeOut(gamepad1.left_trigger);
-            } else if (gamepad1.rightBumperWasPressed()) {
-                timer.reset();
             } else if (gamepad1.right_bumper) {
-                if (timer.milliseconds() > 180) hoodCorrection = 0.045;
                 robot.intake.intakeIn(robot.shooter.calculateIntakePower());
             } else {
                 robot.intake.intakeStop();
@@ -64,18 +61,18 @@ public class A_1_AA_AS_Blue extends LinearOpMode {
             targetX = 136.5 - at * vx;
             targetY = 136 - at * vy;
             targetATAN = Math.toDegrees(Math.atan2((targetY - current.getY(DistanceUnit.INCH)), (targetX - current.getX(DistanceUnit.INCH))));
-            if (Math.abs(targetATAN - drivetrainHeading) <= 175) {
+            if (Math.abs(targetATAN - drivetrainHeading) <= TURRET_ABS_RANGE_DEGREE) {
                 turretTargetHeading = (int) (targetATAN - drivetrainHeading);
             } else {
                 turretTargetHeading = 0;
             }
             distance = Math.abs(Math.hypot(targetY - current.getY(DistanceUnit.INCH), targetX - current.getX(DistanceUnit.INCH)));
 
-            if (gamepad1.dpadUpWasPressed()) distanceCorrection += 2;
-            if (gamepad1.dpadDownWasPressed()) distanceCorrection -= 2;
+            if (gamepad1.dpadUpWasPressed()) distanceCorrection += 1;
+            if (gamepad1.dpadDownWasPressed()) distanceCorrection -= 1;
 
-            if (gamepad1.dpadLeftWasPressed()) turretCorrection -= 2;
-            if (gamepad1.dpadRightWasPressed()) turretCorrection += 2;
+            if (gamepad1.dpadLeftWasPressed()) turretCorrection -= 1;
+            if (gamepad1.dpadRightWasPressed()) turretCorrection += 1;
 
             if (gamepad1.startWasPressed()) {
                 robot.drivetrain.pinPoint.setPosition(new Pose2D(DistanceUnit.INCH, 80, 124, AngleUnit.RADIANS, Math.toRadians(90)));
@@ -83,9 +80,6 @@ public class A_1_AA_AS_Blue extends LinearOpMode {
 
             if (gamepad1.leftBumperWasPressed()) {
                 shooterOn = !shooterOn;
-                if (shooterOn) {
-                    hoodCorrection = 0;
-                }
             }
 
             if (shooterOn) {

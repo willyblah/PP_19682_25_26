@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode.constants;
 
 public class robotConstants {
-    public static double TURRET_FULL_RANGE_DEGREE = 350.0; // 175
-    public static double TURRET_FULL_RANGE_ENCODER = 1144;// 566
+    public static double TURRET_FULL_RANGE_DEGREE = 320.0; // 175
+    public static double TURRET_FULL_RANGE_ENCODER = 1050;// 566
+    public static double TURRET_ABS_RANGE_DEGREE = 160; // 175
+
 
     public static double RPM_A = -0.0004036439;
     public static double RPM_B =  0.1057019636;
@@ -20,8 +22,8 @@ public class robotConstants {
     public static double L_GATE_CLOSE = 0.403;
     public static double R_GATE_OPEN = 0.5;
     public static double R_GATE_CLOSE = 0.66;
-    public static double CURVE_OPEN = 0.3; // 发射
-    public static double CURVE_CLOSE = 0.65; // 关闭发射
+    public static double CURVE_OPEN = 0.639; // 发射
+    public static double CURVE_CLOSE = 0.94; // 关闭发射
 
     public static volatile double autoEndX = 72;
     public static volatile double autoEndY = 72;
