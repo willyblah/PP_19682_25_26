@@ -1,5 +1,4 @@
 package org.firstinspires.ftc.teamcode.subsystems;
-
 import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
 
 import com.arcrobotics.ftclib.controller.PIDFController;
@@ -92,7 +91,7 @@ public class AutoAimSubsystem_MK2 {
     @Configurable
     public static class TurretController {
 
-        public static double kP = 30.0, kI = 0.0, kD = 0.0, kF = 0.0;
+        public static double kP = 10.0, kI = 0, kD = 0.5, kF = 0.0001;
         public static double kV = 0.001339, kS = 0.024370, kA = 0.000007;
         public static double kLinearBraking = 0.069085;
         public static double POWER_SIGN = 1.0, MAX_POWER = 1.0;

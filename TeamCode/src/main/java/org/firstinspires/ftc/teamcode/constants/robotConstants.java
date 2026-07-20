@@ -5,7 +5,6 @@ public class robotConstants {
     public static double TURRET_FULL_RANGE_ENCODER = 1050;// 566
     public static double TURRET_ABS_RANGE_DEGREE = 160; // 175
 
-
     public static double RPM_A = -0.0004036439;
     public static double RPM_B =  0.1057019636;
     public static double RPM_C = -1.8999025678;

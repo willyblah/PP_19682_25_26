@@ -98,7 +98,7 @@ public class Shooter {
         leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance - 2);
-        targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance - 2);
+        targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance);
         setShooter(Range.clip(targetPanel, PANEL_MIN, PANEL_MAX), targetVelocity);
     }
     public void setShooterByDisShow(double distance) {
@@ -111,7 +111,7 @@ public class Shooter {
         if (v < 1540.0) return 1;
         if (v < 1720.0) return 0.85;
         if (v < 1800.0) return 0.85;//0.75
-        return 0.85;//0.65
+        return 0.75;//0.65
     }
 
     public double f(double a, double b, double c, double d, double x) {

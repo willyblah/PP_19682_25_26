@@ -171,7 +171,7 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
             // 用于PP(里程计)突然给出异常位姿时，操作手可以立刻按X让转塔停止乱转
             AutoAimSubsystem_MK2.TurretCommand cmd = turretAimEnabled
                     ? autoAim.update(robotX, robotY, drivetrainHeading, omegaDeg, targetX, targetY, turretCorrection)
-                    : autoAim.center(omegaDeg);
+                    : autoAim.center(0);
 
             updateTelemetry(robotX, robotY, cmd);
         }

@@ -14,4 +14,5 @@ public class panelConstants {
     public static double VELOCITY = 1600;
     public static double POSITION = 0.2;
     public static double IN_POWER = 1;
+
 }
