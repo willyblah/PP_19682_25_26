@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+
+
 import static org.firstinspires.ftc.teamcode.constants.robotConfigs.*;
 
 import com.bylazar.gamepad.GamepadManager;
@@ -8,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -20,6 +23,10 @@ public class Drivetrain {
     private DcMotorEx rightBack = null;
     public GoBildaPinpointDriver pinPoint;
     private double theta, power, turn, realTheta;
+    private double headingError = 0.0, currentHeading = 0.0,
+            lastHeadingError = 0.0, headingCorrection = 0.0,
+            KP = 0.015, KD = 0.0008;
+    private ElapsedTime dt = new ElapsedTime();
 
     public void init(HardwareMap hardwareMap) {
         pinPoint = hardwareMap.get(GoBildaPinpointDriver.class, PIN_POINT);
@@ -57,6 +64,39 @@ public class Drivetrain {
         leftBack.setPower((y - x + rx) * powerScale);
         rightFront.setPower((y - x - rx) * powerScale);
         rightBack.setPower((y + x - rx) * powerScale);
+    }
+
+    public void driveTurnHeading(Gamepad gamepad, boolean aim, double targetATAN) {
+        double y = -gamepad.left_stick_y, x = gamepad.left_stick_x, rx = gamepad.right_stick_x * 0.9;
+        pinPoint.update();
+        theta = Math.atan2(y, x) * 180 / Math.PI;
+        power = Math.hypot(x, y);
+        turn = rx;
+        if (aim) {
+            currentHeading = pinPoint.getHeading(AngleUnit.DEGREES);
+            headingError = (currentHeading - targetATAN + 180) % 360 - 180;
+            headingCorrection = headingError * KP + (headingError - lastHeadingError) / dt.seconds() * KD;
+            dt.reset();
+            lastHeadingError = headingError;
+            turn += headingCorrection;
+        }
+        realTheta = 0.0 + theta;
+        realTheta = realTheta % 360;
+        if (realTheta < 0) realTheta += 360;
+
+        double sin = Math.sin((realTheta * (Math.PI / 180)) - (Math.PI / 4));
+        double cos = Math.cos((realTheta * (Math.PI / 180)) - (Math.PI / 4));
+        double maxSinCos = Math.max(Math.abs(sin), Math.abs(cos));
+
+        double leftFrontPower = (power * cos / maxSinCos + turn);
+        double rightFrontPower = (power * sin / maxSinCos - turn);
+        double leftBackPower = (power * sin / maxSinCos + turn);
+        double rightBackPower = (power * cos / maxSinCos - turn);
+
+        leftFront.setPower(leftFrontPower);
+        rightFront.setPower(rightFrontPower);
+        leftBack.setPower(leftBackPower);
+        rightBack.setPower(rightBackPower);
     }
 
     public double getHeading() {

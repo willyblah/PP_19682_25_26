@@ -59,7 +59,8 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
     // ========================================================================
     public static double drivePower = 1.0;
     public static double turretCorrection = 0;     // 手柄2方向键左右，跟A_2的int字段同名同用途
-    public static double distanceCorrection = 2;   // 手柄2方向键上下，初始值2跟A_2一致
+    public static double VelocityCorrection = 0;   // 手柄2方向键上下，初始值2跟A_2一致
+    public static double panelCorrection = 0; // 转塔自瞄角度范围，跟A_2一致
 
     protected final Robot robot = new Robot();
     protected final AutoAimSubsystem_MK2 autoAim = new AutoAimSubsystem_MK2();
@@ -72,7 +73,7 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
     private double drivetrainHeading;
     private boolean shooterOn = false;
     private boolean movingShoot = false;
-    private boolean turretAimEnabled = true; // X键切换：转塔自瞄总开关，跟shooterOn(飞轮)彻底独立，
+    private boolean turretAimEnabled = true, aim = false; // X键切换：转塔自瞄总开关，跟shooterOn(飞轮)彻底独立，
     // 万一PP(里程计)突然抽风给出错误位姿，按X能立刻让转塔停止乱转、锁回0位
     private double distance;
     private double at = 0.64; // 移动发射提前量(秒)，公式跟A_2一致
@@ -100,7 +101,10 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
         resetToAutoEndPose();
 
         while (opModeIsActive()) {
-            robot.drivetrain.drive(gamepad1, drivePower);
+//            robot.drivetrain.drive(gamepad1, drivePower);
+            robot.drivetrain.driveTurnHeading(gamepad1,aim, 60);
+
+
 
             // ---- 进球/吐球/喂球，跟A_2一致 ----
             if (gamepad1.right_trigger > 0.1) {
@@ -136,10 +140,13 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
             distance = Math.hypot(targetY - robotY, targetX - robotX);
 
             // ---- 手柄2方向键微调，跟A_2一致（注意符号：左+1/右-1，跟之前版本相反，照抄A_2） ----
-            if (gamepad2.dpadUpWasPressed()) distanceCorrection += 1;
-            if (gamepad2.dpadDownWasPressed()) distanceCorrection -= 1;
+            if (gamepad2.dpadUpWasPressed()) VelocityCorrection += 20;
+            if (gamepad2.dpadDownWasPressed()) VelocityCorrection -= 20;
             if (gamepad2.dpadLeftWasPressed()) turretCorrection += 1;
             if (gamepad2.dpadRightWasPressed()) turretCorrection -= 1;
+            if (gamepad2.yWasPressed()) panelCorrection += 0.01;
+            if (gamepad2.aWasPressed()) panelCorrection -= 0.01;
+
             if (gamepad1.yWasPressed()) movingShoot = !movingShoot;
 
             if (gamepad1.leftBumperWasPressed()) {
@@ -154,24 +161,26 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
                 robot.drivetrain.pinPoint.setPosition(getRelocalizePose());
             }
 
+            if (gamepad1.dpadUpWasPressed()) aim = !aim;
+
             // ---- 飞轮转速+浮板：跟A_2一致，只有shooterOn=true才真正设定 ----
             if (shooterOn) {
                 robot.intake.gateOpen();
-                robot.shooter.setShooterByDis(distance + distanceCorrection);
+                robot.shooter.setShooterByDis(distance, VelocityCorrection, panelCorrection);
             } else {
                 robot.intake.gateClose();
                 robot.shooter.shooterHold();
             }
             // shooterOn=false时也顺手算一遍(不真正下发)，让targetVelocity/targetPanel保持新鲜，
             // 这样calculateIntakePower()和遥测在炮塔关闭时也是准的——跟A_2的setShooterByDisShow()用法一致
-            robot.shooter.setShooterByDisShow(distance + distanceCorrection);
+            robot.shooter.setShooterByDisShow(distance, VelocityCorrection, panelCorrection);
 
             // ---- 转塔自瞄：由X键单独控制，跟shooterOn(飞轮)彻底独立 ----
             // 开：正常自瞄，比Shooter.turretToDegree()快；关：转塔锁回0度中心，
             // 用于PP(里程计)突然给出异常位姿时，操作手可以立刻按X让转塔停止乱转
             AutoAimSubsystem_MK2.TurretCommand cmd = turretAimEnabled
                     ? autoAim.update(robotX, robotY, drivetrainHeading, omegaDeg, targetX, targetY, turretCorrection)
-                    : autoAim.center(0);
+                    : autoAim.center();
 
             updateTelemetry(robotX, robotY, cmd);
         }
@@ -198,7 +207,7 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
         joinedTele.addData("shooterOn", shooterOn);
         joinedTele.addData("turretAimEnabled(X切换)", turretAimEnabled);
         joinedTele.addData("distance", distance);
-        joinedTele.addData("distanceCorrection", distanceCorrection);
+        joinedTele.addData("VelocityCorrection", VelocityCorrection);
         joinedTele.addData("turretCorrection", turretCorrection);
         joinedTele.addData("autoAimHasTarget", cmd.hasTarget);
         joinedTele.addData("targetTurretAngle", cmd.targetTurretAngle);

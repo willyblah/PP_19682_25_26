@@ -15,7 +15,7 @@ public class robotConstants {
     public static double PANEL_C =  0.015501136306;
     public static double PANEL_D = -0.302168750944;
     public static double PANEL_MIN = 0.20;
-    public static double PANEL_MAX = 0.85;  // 从数据范围推导
+    public static double PANEL_MAX = 1;// 0.85;  // 从数据范围推导
 
     public static double L_GATE_OPEN = 0.554;
     public static double L_GATE_CLOSE = 0.403;

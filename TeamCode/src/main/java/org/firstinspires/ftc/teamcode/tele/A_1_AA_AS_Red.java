@@ -8,7 +8,6 @@ import com.bylazar.telemetry.JoinedTelemetry;
 import com.bylazar.telemetry.PanelsTelemetry;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -25,7 +24,7 @@ public class A_1_AA_AS_Red extends LinearOpMode {
     boolean shooterOn = false;
     double distance;
     int turretCorrection = 0;
-    double distanceCorrection = 2;
+    double VelocityCorrection = 2;
     JoinedTelemetry joinedTele;
     public static double at = 0.64;
 
@@ -66,8 +65,8 @@ public class A_1_AA_AS_Red extends LinearOpMode {
             }
             distance = Math.abs(Math.hypot(targetY - current.getY(DistanceUnit.INCH), targetX - current.getX(DistanceUnit.INCH)));
 
-            if (gamepad1.dpadUpWasPressed()) distanceCorrection += 1;
-            if (gamepad1.dpadDownWasPressed()) distanceCorrection -= 1;
+            if (gamepad1.dpadUpWasPressed()) VelocityCorrection += 20;
+            if (gamepad1.dpadDownWasPressed()) VelocityCorrection -= 20;
 
             if (gamepad1.dpadLeftWasPressed()) turretCorrection -= 1;
             if (gamepad1.dpadRightWasPressed()) turretCorrection += 1;
@@ -82,7 +81,7 @@ public class A_1_AA_AS_Red extends LinearOpMode {
 
             if (shooterOn) {
                 robot.intake.gateOpen();
-                robot.shooter.setShooterByDis(distance + distanceCorrection);
+                robot.shooter.setShooterByDis(distance, VelocityCorrection, 0);
                 robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
             } else {
                 robot.intake.gateClose();
@@ -101,7 +100,7 @@ public class A_1_AA_AS_Red extends LinearOpMode {
             joinedTele.addData("shooterVL", robot.shooter.leftShooter.getVelocity());
             joinedTele.addData("shooterVR", robot.shooter.rightShooter.getVelocity());
             joinedTele.addData("turretCorrection", turretCorrection);
-            joinedTele.addData("distanceCorrection", distanceCorrection);
+            joinedTele.addData("VelocityCorrection", VelocityCorrection);
             joinedTele.addData("intakePower", robot.shooter.calculateIntakePower());
             joinedTele.addData("panel", robot.shooter.panel.getPosition());
             joinedTele.update();

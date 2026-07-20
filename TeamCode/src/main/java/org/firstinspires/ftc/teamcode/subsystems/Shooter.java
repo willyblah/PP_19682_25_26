@@ -97,13 +97,24 @@ public class Shooter {
         light.setPosition(0.61);
         leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
         rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
-        targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance - 2);
+        targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance);
         targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance);
         setShooter(Range.clip(targetPanel, PANEL_MIN, PANEL_MAX), targetVelocity);
     }
-    public void setShooterByDisShow(double distance) {
-        targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance);
-        targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance);
+
+    public void setShooterByDis(double distance, double VelocityCorrection, double panelCorrection) {
+        light.setPosition(0.61);
+        leftShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
+        rightShooter.setVelocityPIDFCoefficients(SHOOTER_KP, SHOOTER_KI, SHOOTER_KD, SHOOTER_KF);
+        targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance) + VelocityCorrection;
+        targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance) + panelCorrection;
+        setShooter(Range.clip(targetPanel, PANEL_MIN, PANEL_MAX), targetVelocity);
+    }
+
+
+    public void setShooterByDisShow(double distance, double VelocityCorrection, double panelCorrection) {
+        targetVelocity = f(RPM_A, RPM_B, RPM_C, RPM_D, distance) + VelocityCorrection;
+        targetPanel = f(PANEL_A, PANEL_B, PANEL_C, PANEL_D, distance) + panelCorrection;
     }
 
     public double calculateIntakePower() {

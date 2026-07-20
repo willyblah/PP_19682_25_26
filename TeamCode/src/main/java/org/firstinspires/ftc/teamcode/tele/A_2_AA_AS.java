@@ -25,7 +25,8 @@ public class A_2_AA_AS extends LinearOpMode {
     boolean shooterOn = false, movingShoot = false, shootingPre = false;
     double distance;
     int turretCorrection = 0;
-    double distanceCorrection = 2;
+    double VelocityCorrection = 2;
+    double panelCorrection = 0;
     long gap = 0;
     ElapsedTime timer = new ElapsedTime();
     JoinedTelemetry joinedTele;
@@ -78,11 +79,13 @@ public class A_2_AA_AS extends LinearOpMode {
             }
             distance = Math.abs(Math.hypot(targetY - current.getY(DistanceUnit.INCH), targetX - current.getX(DistanceUnit.INCH)));
 
-            if (gamepad2.dpadUpWasPressed()) distanceCorrection += 1;
-            if (gamepad2.dpadDownWasPressed()) distanceCorrection -= 1;
-
+            if (gamepad2.dpadUpWasPressed()) VelocityCorrection += 20;
+            if (gamepad2.dpadDownWasPressed()) VelocityCorrection -= 20;
             if (gamepad2.dpadLeftWasPressed()) turretCorrection += 1;
             if (gamepad2.dpadRightWasPressed()) turretCorrection -= 1;
+            if (gamepad2.yWasPressed()) panelCorrection += 0.01;
+            if (gamepad2.aWasPressed()) panelCorrection -= 0.01;
+
             if (gamepad1.yWasPressed())  movingShoot = !movingShoot;
 
             if (gamepad1.leftBumperWasPressed()) {
@@ -96,7 +99,7 @@ public class A_2_AA_AS extends LinearOpMode {
 
             if (shooterOn) {
                 robot.intake.gateOpen();
-                robot.shooter.setShooterByDis(distance + distanceCorrection);
+                robot.shooter.setShooterByDis(distance, VelocityCorrection, panelCorrection);
 //                robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
             } else {
                 robot.intake.gateClose();
@@ -105,7 +108,7 @@ public class A_2_AA_AS extends LinearOpMode {
             }
 //            robot.drivetrain.shootOnMoving(shootingPre);
             robot.shooter.turretToDegree(turretTargetHeading + turretCorrection);
-            robot.shooter.setShooterByDisShow(distance + distanceCorrection);
+            robot.shooter.setShooterByDisShow(distance, VelocityCorrection, panelCorrection);
 
             joinedTele.addData("x", current.getX(DistanceUnit.INCH));
             joinedTele.addData("y", current.getY(DistanceUnit.INCH));
@@ -119,7 +122,7 @@ public class A_2_AA_AS extends LinearOpMode {
             joinedTele.addData("shooterVL", robot.shooter.leftShooter.getVelocity());
             joinedTele.addData("shooterVR", robot.shooter.rightShooter.getVelocity());
             joinedTele.addData("turretCorrection", turretCorrection);
-            joinedTele.addData("distanceCorrection", distanceCorrection);
+            joinedTele.addData("VelocityCorrection", VelocityCorrection);
             joinedTele.addData("intakePower", robot.shooter.calculateIntakePower());
             joinedTele.addData("panel", robot.shooter.panel.getPosition());
             joinedTele.update();

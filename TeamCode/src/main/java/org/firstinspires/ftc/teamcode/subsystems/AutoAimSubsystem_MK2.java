@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.subsystems;
+
 import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
 
 import com.arcrobotics.ftclib.controller.PIDFController;
@@ -91,9 +92,9 @@ public class AutoAimSubsystem_MK2 {
     @Configurable
     public static class TurretController {
 
-        public static double kP = 10.0, kI = 0, kD = 0.5, kF = 0.0001;
-        public static double kV = 0.001339, kS = 0.024370, kA = 0.000007;
-        public static double kLinearBraking = 0.069085;
+        public static double kP = 10.0, kI = 0.0, kD = 0.5, kF = 0.0001;
+        public static double kV = 0.001217, kS = 0.057978, kA = 0.000006;
+        public static double kLinearBraking = 0.046419;
         public static double POWER_SIGN = 1.0, MAX_POWER = 1.0;
         public static double TUNING_VOLTAGE = 13.84;
 
@@ -270,20 +271,19 @@ public class AutoAimSubsystem_MK2 {
     public double getCurrentBatteryVoltage()  { return turret.getBattery(); }
 
     /**
-     * 转塔自瞄关闭时调用：转塔转回中心(0度)锁定，不瞄准任何目标。
-     * 跟 update() 用同一套滤波+前馈+PID，只是目标角度固定为 CENTER_ANGLE——
-     * 这样转塔角度/速度滤波器一直保持"热"的，重新打开自瞄时不会有猛转追赶的问题
-     * (这个精简版引擎本身没有维护"机器人朝向"的持续状态，所以不存在旧版那种
-     * smoothHeading失联的顾虑，center()可以随时安全调用/随时切回update())。
+     * 转塔自瞄关闭时调用：转塔转回中心(0度)并死死焊在机器人坐标系的0度上锁定，
+     * 机器人自己怎么转都不会让转塔跟着"补偿"——这才是真正的"锁定"，跟 update()
+     * 追踪世界坐标系目标(需要抵消机器人自转)是两回事，前馈速度这里固定传0，
+     * 不再传 -omegaDeg。
      */
-    public TurretCommand center(double omegaDeg) {
+    public TurretCommand center() {
         cmd.reset();
 
         long now = System.nanoTime();
         double dt = lastTime == 0 ? 0.0001 : (now - lastTime) / 1e9;
         lastTime = now;
 
-        turret.update(turret.filtAngle(), TurretController.CENTER_ANGLE, -omegaDeg, dt);
+        turret.update(turret.filtAngle(), TurretController.CENTER_ANGLE, 0.0, dt);
 
         cmd.hasTarget = false;
         cmd.targetTurretAngle = TurretController.CENTER_ANGLE;
