@@ -73,10 +73,15 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
     private double drivetrainHeading;
     private boolean shooterOn = false;
     private boolean movingShoot = false;
-    private boolean turretAimEnabled = true, aim = false; // X键切换：转塔自瞄总开关，跟shooterOn(飞轮)彻底独立，
+    private boolean turretAimEnabled = true; // X键切换：转塔自瞄总开关，跟shooterOn(飞轮)彻底独立，
     // 万一PP(里程计)突然抽风给出错误位姿，按X能立刻让转塔停止乱转、锁回0位
     private double distance;
     private double at = 0.64; // 移动发射提前量(秒)，公式跟A_2一致
+
+    /** 底盘角度锁定状态：NONE=正常摇杆转向，LOCK_1=dpadUp锁的角度，LOCK_2=dpadDown锁的角度。 */
+    private enum HeadingLock { NONE, LOCK_1, LOCK_2 }
+    private HeadingLock headingLock = HeadingLock.NONE;
+
 
     // ========================================================================
     // 子类必须提供：只有这几项跟颜色相关
@@ -85,6 +90,13 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
     protected abstract double getTargetY();
     protected abstract Pose2D getRelocalizePose();
     protected abstract String getAllianceName();
+
+    /**
+     * 底盘角度锁定的两个预设目标朝向(度)，红蓝各自独立设置：
+     * gamepad1.dpadUp → getHeadingLockAngle1()，gamepad1.dpadDown → getHeadingLockAngle2()
+     */
+    protected abstract double getHeadingLockAngle1();
+    protected abstract double getHeadingLockAngle2();
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -102,15 +114,17 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
 
         while (opModeIsActive()) {
 //            robot.drivetrain.drive(gamepad1, drivePower);
-            robot.drivetrain.driveTurnHeading(gamepad1,aim, 60);
-
+            boolean lockActive = headingLock != HeadingLock.NONE;
+            double lockAngle = (headingLock == HeadingLock.LOCK_1)
+                    ? getHeadingLockAngle1() : getHeadingLockAngle2();
+            robot.drivetrain.driveTurnHeading(gamepad1, lockActive, lockAngle);
 
 
             // ---- 进球/吐球/喂球，跟A_2一致 ----
-            if (gamepad1.right_trigger > 0.1) {
+            if (gamepad1.right_trigger > 0.5) {
                 robot.intake.intakeIn();
                 shooterOn = false;
-            } else if (gamepad1.left_trigger > 0.1) {
+            } else if (gamepad1.left_trigger > 0.5) {
                 robot.intake.intakeOut(gamepad1.left_trigger);
             } else if (gamepad1.right_bumper) {
                 robot.intake.intakeIn(robot.shooter.calculateIntakePower());
@@ -161,7 +175,14 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
                 robot.drivetrain.pinPoint.setPosition(getRelocalizePose());
             }
 
-            if (gamepad1.dpadUpWasPressed()) aim = !aim;
+            // dpadUp/dpadDown 分别切换两个不同的锁定角度：
+            // 再按一次同一个键 → 取消锁定；先按了一个再按另一个 → 直接切到另一个角度
+            if (gamepad1.aWasPressed()) {
+                headingLock = (headingLock == HeadingLock.LOCK_1) ? HeadingLock.NONE : HeadingLock.LOCK_1;
+            }
+            if (gamepad1.bWasPressed()) {
+                headingLock = (headingLock == HeadingLock.LOCK_2) ? HeadingLock.NONE : HeadingLock.LOCK_2;
+            }
 
             // ---- 飞轮转速+浮板：跟A_2一致，只有shooterOn=true才真正设定 ----
             if (shooterOn) {
@@ -206,6 +227,7 @@ public abstract class AA_TeleOp_Base extends LinearOpMode {
         joinedTele.addData("movingShoot", movingShoot);
         joinedTele.addData("shooterOn", shooterOn);
         joinedTele.addData("turretAimEnabled(X切换)", turretAimEnabled);
+        joinedTele.addData("headingLock(dpadUp/Down)", headingLock);
         joinedTele.addData("distance", distance);
         joinedTele.addData("VelocityCorrection", VelocityCorrection);
         joinedTele.addData("turretCorrection", turretCorrection);

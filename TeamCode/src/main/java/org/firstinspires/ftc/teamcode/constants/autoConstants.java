@@ -6,7 +6,7 @@ public class autoConstants {
     public static long TOTAL_SHOOT_TIME = 0;
 
     public static long AUTO_CLOSE_WAIT_FOR_SHOOT = 0;
-    public static double CLOSE_FIRE_DISTANCE = 75.0;
+    public static double CLOSE_FIRE_DISTANCE = 70.0;
     public static double CLOSE_FIRE_INTAKE_POWER = 0.8;
     public static double FAR_FIRE_INTAKE_POWER = 0.5;
     public static double CLOSE_HOLD_DISTANCE = CLOSE_FIRE_DISTANCE;
@@ -17,6 +17,7 @@ public class autoConstants {
     // ==================== BLUE ====================
 
     public static double BLUE_CLOSE_FIRE_TURRET = -45;
+    public static double BLUE_CLOSE_FIRE_TURRET_21 = 0;
 
     public static double BLUE_INTAKE_START_X = 45;
     public static double BLUE_INTAKE_END_X = 18.8;
@@ -26,9 +27,11 @@ public class autoConstants {
 
     public static Pose BLUE_CLOSE_START = new Pose(23.52, 121.38, Math.toRadians(141.67));
     public static Pose BLUE_CLOSE_SHOOT = new Pose(61.06, 85.1, Math.toRadians(180));
+    public static Pose BLUE_CLOSE_SHOOT_21 = new Pose(BLUE_CLOSE_SHOOT.getX(), BLUE_CLOSE_SHOOT.getY(), Math.toRadians(150));
     public static Pose BLUE_CLOSE_SHOOT_CONTROL = new Pose(47.95, 60);
     public static Pose BLUE_CLOSE_SHOOT_PRELOAD = new Pose(BLUE_CLOSE_SHOOT.getX(), BLUE_CLOSE_SHOOT.getY(), BLUE_CLOSE_SHOOT.getHeading());
-    public static Pose BLUE_CLOSE_INTAKE_FIRST_CONTROL = new Pose(50, 78);
+    public static Pose BLUE_CLOSE_INTAKE_FIRST_CONTROL = new Pose(50, 75);
+    public static Pose BLUE_CLOSE_INTAKE_FIRST_CONTROL_21 = new Pose(50, 72);
     public static Pose BLUE_CLOSE_INTAKE_FIRST_END = new Pose(BLUE_INTAKE_END_X - 3, BLUE_INTAKE_FIRST_ROW_Y, Math.toRadians(180));
     public static Pose BLUE_CLOSE_SHOOT_FIRST_ROW = new Pose(59.5, 106, Math.toRadians(150));
     public static Pose BLUE_CLOSE_INTAKE_SECOND_CONTROL = new Pose(47.95, 55);
@@ -59,44 +62,63 @@ public class autoConstants {
 
     // ==================== RED ====================
 
-    public static double RED_CLOSE_FIRE_TURRET = -BLUE_CLOSE_FIRE_TURRET;
+    public static double RED_CLOSE_FIRE_TURRET = 45;
+    public static double RED_CLOSE_FIRE_TURRET_21 = 85;
 
-    public static double RED_INTAKE_START_X = 144 - BLUE_INTAKE_START_X;
-    public static double RED_INTAKE_END_X = 144 - BLUE_INTAKE_END_X;
-    public static double RED_INTAKE_FIRST_ROW_Y = BLUE_INTAKE_FIRST_ROW_Y;
-    public static double RED_INTAKE_SECOND_ROW_Y = BLUE_INTAKE_SECOND_ROW_Y;
-    public static double RED_INTAKE_THIRD_ROW_Y = BLUE_INTAKE_THIRD_ROW_Y;
 
-    public static Pose RED_CLOSE_START = new Pose(144 - BLUE_CLOSE_START.getX(), BLUE_CLOSE_START.getY(), Math.toRadians(180) - BLUE_CLOSE_START.getHeading());
-    public static Pose RED_CLOSE_SHOOT = new Pose(144 - BLUE_CLOSE_SHOOT.getX(), BLUE_CLOSE_SHOOT.getY(), Math.toRadians(180) - BLUE_CLOSE_SHOOT.getHeading());
-    public static Pose RED_CLOSE_SHOOT_CONTROL = new Pose(144 - BLUE_CLOSE_SHOOT_CONTROL.getX(), BLUE_CLOSE_SHOOT_CONTROL.getY());
-    public static Pose RED_CLOSE_SHOOT_PRELOAD = new Pose(RED_CLOSE_SHOOT.getX(), RED_CLOSE_SHOOT.getY(), RED_CLOSE_SHOOT.getHeading());
-    public static Pose RED_CLOSE_INTAKE_FIRST_CONTROL = new Pose(144 - BLUE_CLOSE_INTAKE_FIRST_CONTROL.getX(), BLUE_CLOSE_INTAKE_FIRST_CONTROL.getY());
-    public static Pose RED_CLOSE_INTAKE_FIRST_END = new Pose(144 - BLUE_CLOSE_INTAKE_FIRST_END.getX(), BLUE_CLOSE_INTAKE_FIRST_END.getY(), Math.toRadians(180) - BLUE_CLOSE_INTAKE_FIRST_END.getHeading());
-    public static Pose RED_CLOSE_SHOOT_FIRST_ROW = new Pose(144 - BLUE_CLOSE_SHOOT_FIRST_ROW.getX(), BLUE_CLOSE_SHOOT_FIRST_ROW.getY(), Math.toRadians(180) - BLUE_CLOSE_SHOOT_FIRST_ROW.getHeading());
-    public static Pose RED_CLOSE_INTAKE_SECOND_CONTROL = new Pose(144 - BLUE_CLOSE_INTAKE_SECOND_CONTROL.getX(), BLUE_CLOSE_INTAKE_SECOND_CONTROL.getY());
-    public static Pose RED_CLOSE_INTAKE_SECOND_END = new Pose(144 - BLUE_CLOSE_INTAKE_SECOND_END.getX(), BLUE_CLOSE_INTAKE_SECOND_END.getY(), Math.toRadians(180) - BLUE_CLOSE_INTAKE_SECOND_END.getHeading());
-    public static Pose RED_CLOSE_SHOOT_SECOND_ROW = new Pose(RED_CLOSE_SHOOT.getX(), RED_CLOSE_SHOOT.getY(), RED_CLOSE_SHOOT.getHeading());
-    public static Pose RED_CLOSE_INTAKE_THIRD_START = new Pose(RED_INTAKE_START_X, RED_INTAKE_THIRD_ROW_Y, Math.toRadians(180) - BLUE_CLOSE_INTAKE_THIRD_START.getHeading());
-    public static Pose RED_CLOSE_INTAKE_THIRD_END = new Pose(RED_INTAKE_END_X, RED_INTAKE_THIRD_ROW_Y, Math.toRadians(180) - BLUE_CLOSE_INTAKE_THIRD_END.getHeading());
-    public static Pose RED_CLOSE_SHOOT_THIRD_ROW = new Pose(RED_CLOSE_SHOOT.getX(), RED_CLOSE_SHOOT.getY(), RED_CLOSE_SHOOT.getHeading());
-    public static Pose RED_CLOSE_INTAKE_GATE = new Pose(144 - BLUE_CLOSE_INTAKE_GATE.getX(), BLUE_CLOSE_INTAKE_GATE.getY(), Math.toRadians(180) - BLUE_CLOSE_INTAKE_GATE.getHeading());
-    public static Pose RED_CLOSE_INTAKE_GATE_CONTROL = new Pose(144 - BLUE_CLOSE_INTAKE_GATE_CONTROL.getX(), BLUE_CLOSE_INTAKE_GATE_CONTROL.getY());
-    public static Pose RED_CLOSE_INTAKE_GATE_END = new Pose(144 - BLUE_CLOSE_INTAKE_GATE_END.getX(), BLUE_CLOSE_INTAKE_GATE_END.getY(), Math.toRadians(180) - BLUE_CLOSE_INTAKE_GATE_END.getHeading());
-    public static Pose RED_CLOSE_SHOOT_INTAKE_GATE = new Pose(RED_CLOSE_SHOOT.getX(), RED_CLOSE_SHOOT.getY(), RED_CLOSE_SHOOT.getHeading());
-    public static Pose RED_CLOSE_PARK = new Pose(144 - BLUE_CLOSE_PARK.getX(), BLUE_CLOSE_PARK.getY(), Math.toRadians(180) - BLUE_CLOSE_PARK.getHeading());
+    public static double RED_INTAKE_START_X = 99;
+    public static double RED_INTAKE_END_X = 125.2;
+    public static double RED_INTAKE_FIRST_ROW_Y = 85.9;
+    public static double RED_INTAKE_SECOND_ROW_Y = 55;
+    public static double RED_INTAKE_THIRD_ROW_Y = 36;
 
-    public static double RED_FAR_TURRET = -BLUE_FAR_TURRET;
-    public static Pose RED_FAR_START = new Pose(144 - BLUE_FAR_START.getX(), BLUE_FAR_START.getY(), Math.toRadians(180) - BLUE_FAR_START.getHeading());
-    public static Pose RED_FAR_SHOOT = new Pose(RED_FAR_START.getX(), RED_FAR_START.getY() + 1, RED_FAR_START.getHeading());
-    public static Pose RED_FAR_INTAKE_HP_1_START = new Pose(144 - BLUE_FAR_INTAKE_HP_1_START.getX(), BLUE_FAR_INTAKE_HP_1_START.getY(), Math.toRadians(180) - BLUE_FAR_INTAKE_HP_1_START.getHeading());
-    public static Pose RED_FAR_INTAKE_HP_1_MID = new Pose(144 - BLUE_FAR_INTAKE_HP_1_MID.getX(), BLUE_FAR_INTAKE_HP_1_MID.getY(), Math.toRadians(180) - BLUE_FAR_INTAKE_HP_1_MID.getHeading());
-    public static Pose RED_FAR_INTAKE_HP_1_END = new Pose(144 - BLUE_FAR_INTAKE_HP_1_END.getX(), BLUE_FAR_INTAKE_HP_1_END.getY(), Math.toRadians(180) - BLUE_FAR_INTAKE_HP_1_END.getHeading());
-    public static Pose RED_FAR_SHOOT_HP = new Pose(RED_FAR_SHOOT.getX(), RED_FAR_SHOOT.getY(), RED_FAR_SHOOT.getHeading());
-    public static Pose RED_FAR_SHOOT_TUNNEL = new Pose(RED_FAR_SHOOT.getX(), RED_FAR_SHOOT.getY(), RED_FAR_SHOOT.getHeading());
-    public static Pose RED_FAR_PARK = new Pose(144 - BLUE_FAR_PARK.getX(), BLUE_FAR_PARK.getY(), Math.toRadians(180) - BLUE_FAR_PARK.getHeading());
-    public static Pose RED_FAR_INTAKE_THIRD_CONTROL = new Pose(144 - BLUE_FAR_INTAKE_THIRD_CONTROL.getX(), BLUE_FAR_INTAKE_THIRD_CONTROL.getY());
-    public static Pose RED_FAR_INTAKE_THIRD_END = new Pose(144 - BLUE_FAR_INTAKE_THIRD_END.getX(), BLUE_FAR_INTAKE_THIRD_END.getY(), Math.toRadians(180) - BLUE_FAR_INTAKE_THIRD_END.getHeading());
-    public static Pose RED_FAR_INTAKE_TUNNEL_START = new Pose(144 - BLUE_FAR_INTAKE_TUNNEL_START.getX(), BLUE_FAR_INTAKE_TUNNEL_START.getY(), Math.toRadians(180) - BLUE_FAR_INTAKE_TUNNEL_START.getHeading());
-    public static Pose RED_FAR_INTAKE_TUNNEL_END = new Pose(144 - BLUE_FAR_INTAKE_TUNNEL_END.getX(), BLUE_FAR_INTAKE_TUNNEL_END.getY(), Math.toRadians(180) - BLUE_FAR_INTAKE_TUNNEL_END.getHeading());
+    public static Pose RED_CLOSE_START = new Pose(120.48, 121.38, Math.toRadians(38.33));
+    public static Pose RED_CLOSE_SHOOT = new Pose(82.94, 85.1, Math.toRadians(0));
+    public static Pose RED_CLOSE_SHOOT_21 = new Pose(RED_CLOSE_SHOOT.getX(), RED_CLOSE_SHOOT.getY(), Math.toRadians(-45));
+
+    public static Pose RED_CLOSE_SHOOT_CONTROL = new Pose(96.05, 60);
+    public static Pose RED_CLOSE_SHOOT_PRELOAD = new Pose(82.94, 85.1, Math.toRadians(0));
+    public static Pose RED_CLOSE_SHOOT_PRELOAD_21 = new Pose(RED_CLOSE_SHOOT_21.getX(), RED_CLOSE_SHOOT.getY(), Math.toRadians(-45));
+
+
+    public static Pose RED_CLOSE_INTAKE_FIRST_CONTROL = new Pose(94, 75);
+    public static Pose RED_CLOSE_INTAKE_FIRST_CONTROL_21 = new Pose(94, 72);
+
+    public static Pose RED_CLOSE_INTAKE_FIRST_END = new Pose(128.2, 85.9, Math.toRadians(0));
+    public static Pose RED_CLOSE_SHOOT_FIRST_ROW = new Pose(84.5, 106, Math.toRadians(30));
+
+    public static Pose RED_CLOSE_INTAKE_SECOND_CONTROL = new Pose(96.05, 55);
+    public static Pose RED_CLOSE_INTAKE_SECOND_END = new Pose(128.2, 55, Math.toRadians(0));
+    public static Pose RED_CLOSE_SHOOT_SECOND_ROW = new Pose(82.94, 85.1, Math.toRadians(0));
+
+    public static Pose RED_CLOSE_INTAKE_THIRD_START = new Pose(99, 36, Math.toRadians(0));
+    public static Pose RED_CLOSE_INTAKE_THIRD_END = new Pose(125.2, 36, Math.toRadians(0));
+    public static Pose RED_CLOSE_SHOOT_THIRD_ROW = new Pose(82.94, 85.1, Math.toRadians(0));
+
+    public static Pose RED_CLOSE_INTAKE_GATE = new Pose(130.73, 59.46, Math.toRadians(35));
+    public static Pose RED_CLOSE_INTAKE_GATE_CONTROL = new Pose(101, 63.5);
+    public static Pose RED_CLOSE_INTAKE_GATE_END = new Pose(128.73, 55.46, Math.toRadians(33));
+    public static Pose RED_CLOSE_SHOOT_INTAKE_GATE = new Pose(82.94, 85.1, Math.toRadians(0));
+
+    public static Pose RED_CLOSE_PARK = new Pose(89, 65, Math.toRadians(0));
+
+    public static double RED_FAR_TURRET = 69;
+
+    public static Pose RED_FAR_START = new Pose(84.28, 12.4, Math.toRadians(0));
+    public static Pose RED_FAR_SHOOT = new Pose(84.28, 13.4, Math.toRadians(0));
+
+    public static Pose RED_FAR_INTAKE_HP_1_START = new Pose(131, 13, Math.toRadians(0));
+    public static Pose RED_FAR_INTAKE_HP_1_MID = new Pose(132, 25, Math.toRadians(49));
+    public static Pose RED_FAR_INTAKE_HP_1_END = new Pose(133, 36, Math.toRadians(60));
+
+    public static Pose RED_FAR_SHOOT_HP = new Pose(84.28, 13.4, Math.toRadians(0));
+    public static Pose RED_FAR_SHOOT_TUNNEL = new Pose(84.28, 13.4, Math.toRadians(0));
+
+    public static Pose RED_FAR_PARK = new Pose(106.2, 16.8, Math.toRadians(0));
+
+    public static Pose RED_FAR_INTAKE_THIRD_CONTROL = new Pose(97.5, 39.7);
+    public static Pose RED_FAR_INTAKE_THIRD_END = new Pose(129.6, 39, Math.toRadians(0));
+
+    public static Pose RED_FAR_INTAKE_TUNNEL_START = new Pose(90.0, 26.5, Math.toRadians(0));
+    public static Pose RED_FAR_INTAKE_TUNNEL_END = new Pose(132.0, 26.5, Math.toRadians(15));
 }

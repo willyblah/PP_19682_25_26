@@ -18,6 +18,7 @@ public class Intake {
         rGate = hardwareMap.get(Servo.class, R_GATE);
         curve = hardwareMap.get(Servo.class, CURVE);
         intake.setDirection(DcMotorEx.Direction.REVERSE);
+        intake.setZeroPowerBehavior(DcMotorEx.ZeroPowerBehavior.BRAKE);
     }
 
     public void intakeIn() {

@@ -18,11 +18,11 @@ public class robotConstants {
     public static double PANEL_MAX = 1;// 0.85;  // 从数据范围推导
 
     public static double L_GATE_OPEN = 0.554;
-    public static double L_GATE_CLOSE = 0.403;
+    public static double L_GATE_CLOSE = 0.39;//0.403;
     public static double R_GATE_OPEN = 0.5;
-    public static double R_GATE_CLOSE = 0.66;
+    public static double R_GATE_CLOSE = 0.67;//0.66;
     public static double CURVE_OPEN = 0.639; // 发射
-    public static double CURVE_CLOSE = 0.94; // 关闭发射
+    public static double CURVE_CLOSE = 0.639; // 0.94; // 关闭发射
 
     public static volatile double autoEndX = 72;
     public static volatile double autoEndY = 72;

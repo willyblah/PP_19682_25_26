@@ -153,24 +153,25 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                         new ParallelCommandGroup(
                             new InstantCommand(() -> robot.intake.intakeIn()),
                             new ParallelDeadlineGroup(
-                                    new WaitCommand(2000),
+                                    new WaitCommand(15000),
                                     new DriveCurrentToPoint(follower,
                                             RED_CLOSE_INTAKE_GATE_CONTROL,
-                                            RED_CLOSE_INTAKE_GATE)
+                                            RED_CLOSE_INTAKE_GATE_END)
                                     )
                         ),
 
-                        new ParallelDeadlineGroup(
-                                new WaitCommand(1500),
-                                new DriveCurrentToPoint(follower,
-                                        RED_CLOSE_INTAKE_GATE_END)
-                        ),
+//                        new ParallelDeadlineGroup(
+//                                new WaitCommand(1500),
+//                                new DriveCurrentToPoint(follower,
+//                                        RED_CLOSE_INTAKE_GATE_END)
+//                        ),
 
                         new ParallelCommandGroup(
                                 new SequentialCommandGroup(
                                         new WaitCommand(400),
                                         new InstantCommand(() -> robot.intake.intakeStop())
                                 ),
+//                                new InstantCommand(() -> robot.intake.intakeStop()),
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
                                 new InstantCommand(() -> robot.shooter.turretToDegree(RED_CLOSE_FIRE_TURRET)),
                                 new DriveCurrentToPoint(follower,
@@ -190,7 +191,7 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(3500),
                                         new DriveCurrentToPoint(follower,
                                                 RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE)
+                                                RED_CLOSE_INTAKE_GATE_END)
                                 )
                         ),
 
@@ -199,6 +200,7 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(400),
                                         new InstantCommand(() -> robot.intake.intakeStop())
                                 ),
+//                                new InstantCommand(() -> robot.intake.intakeStop()),
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
                                 new InstantCommand(() -> robot.shooter.turretToDegree(RED_CLOSE_FIRE_TURRET)),
                                 new DriveCurrentToPoint(follower,
@@ -218,7 +220,7 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(3500),
                                         new DriveCurrentToPoint(follower,
                                                 RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE)
+                                                RED_CLOSE_INTAKE_GATE_END)
                                 )
                         ),
 
@@ -227,6 +229,7 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(400),
                                         new InstantCommand(() -> robot.intake.intakeStop())
                                 ),
+//                                new InstantCommand(() -> robot.intake.intakeStop()),
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
                                 new InstantCommand(() -> robot.shooter.turretToDegree(RED_CLOSE_FIRE_TURRET)),
                                 new DriveCurrentToPoint(follower,

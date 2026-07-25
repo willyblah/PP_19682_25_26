@@ -21,6 +21,10 @@ public class AA_TeleOp_Blue_Dual extends AA_TeleOp_Base {
     public static double RESET_Y_IN = 124;
     public static double RESET_H_DEG = 90;
 
+    /** gamepad1.dpadUp/dpadDown 分别切换的两个底盘角度锁定预设(度)，蓝方独立可调，不影响红方。 */
+    public static double HEADING_LOCK_ANGLE_1_DEG = 60;
+    public static double HEADING_LOCK_ANGLE_2_DEG = 130;
+
     @Override
     protected double getTargetX() { return TARGET_X; }
 
@@ -35,4 +39,10 @@ public class AA_TeleOp_Blue_Dual extends AA_TeleOp_Base {
 
     @Override
     protected String getAllianceName() { return "BLUE"; }
+
+    @Override
+    protected double getHeadingLockAngle1() { return HEADING_LOCK_ANGLE_1_DEG; }
+
+    @Override
+    protected double getHeadingLockAngle2() { return HEADING_LOCK_ANGLE_2_DEG; }
 }
