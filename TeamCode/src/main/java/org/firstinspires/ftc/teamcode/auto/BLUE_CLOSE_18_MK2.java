@@ -1,29 +1,7 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.AUTO_CLOSE_WAIT_FOR_SHOOT;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_FIRE_TURRET;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_FIRST_CONTROL;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_FIRST_END;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_GATE;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_GATE_CONTROL;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_GATE_END;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_SECOND_CONTROL;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_SECOND_END;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_PARK;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_SHOOT_INTAKE_GATE;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_SHOOT_PRELOAD;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_START;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_FIRE_DISTANCE;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_FIRE_INTAKE_POWER;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_HOLD_DISTANCE;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.TOTAL_SHOOT_TIME;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.BLUE_TARGET_X;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.BLUE_TARGET_Y;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndH;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndX;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndY;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetX;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetY;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.*;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -124,8 +102,8 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                         new ParallelDeadlineGroup(
                                 new WaitCommand(1500), // 等待吸取时间
                                 new DriveCurrentToPoint(follower,
-                                    BLUE_CLOSE_INTAKE_SECOND_CONTROL,
-                                    BLUE_CLOSE_INTAKE_SECOND_END
+                                        BLUE_CLOSE_INTAKE_SECOND_CONTROL,
+                                        BLUE_CLOSE_INTAKE_SECOND_END
                                 )
                         ),
 
@@ -140,7 +118,7 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
                                 new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
                                 new DriveCurrentToPoint(follower,
-                                    BLUE_CLOSE_SHOOT_PRELOAD)
+                                        BLUE_CLOSE_SHOOT_PRELOAD)
                         ),
 
                         // 发射第二组球
@@ -152,20 +130,19 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
 
                         // 第一次闸门cycle
                         new ParallelCommandGroup(
-                            new InstantCommand(() -> robot.intake.intakeIn()),
-                            new ParallelDeadlineGroup(
-                                    new WaitCommand(3000),
-                                    new DriveCurrentToPoint(follower,
-                                            BLUE_CLOSE_INTAKE_GATE_CONTROL,
-                                            BLUE_CLOSE_INTAKE_GATE_END)
-                                    )
+                                new InstantCommand(() -> robot.intake.intakeIn()),
+                                new ParallelDeadlineGroup(
+                                        new WaitCommand(2000),
+                                        new DriveCurrentToPoint(follower,
+                                                BLUE_CLOSE_INTAKE_GATE_CONTROL,
+                                                BLUE_CLOSE_INTAKE_GATE)
+                                )
                         ),
-//
-//                        new ParallelDeadlineGroup(
-//                                new WaitCommand(1500),
-//                                new DriveCurrentToPoint(follower,
-//                                        BLUE_CLOSE_INTAKE_GATE_END)
-//                        ),
+                        new ParallelDeadlineGroup(
+                                new WaitCommand(1000),
+                                new DriveCurrentToPoint(follower,
+                                        BLUE_CLOSE_INTAKE_GATE_END)
+                        ),
 
                         new ParallelCommandGroup(
                                 new SequentialCommandGroup(
@@ -189,11 +166,16 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> robot.intake.intakeIn()),
                                 new ParallelDeadlineGroup(
-                                        new WaitCommand(3500),
+                                        new WaitCommand(2000),
                                         new DriveCurrentToPoint(follower,
                                                 BLUE_CLOSE_INTAKE_GATE_CONTROL,
-                                                BLUE_CLOSE_INTAKE_GATE_END)
+                                                BLUE_CLOSE_INTAKE_GATE)
                                 )
+                        ),
+                        new ParallelDeadlineGroup(
+                                new WaitCommand(1500),
+                                new DriveCurrentToPoint(follower,
+                                        BLUE_CLOSE_INTAKE_GATE_END)
                         ),
 
                         new ParallelCommandGroup(
@@ -218,11 +200,16 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> robot.intake.intakeIn()),
                                 new ParallelDeadlineGroup(
-                                        new WaitCommand(3500),
+                                        new WaitCommand(2000),
                                         new DriveCurrentToPoint(follower,
                                                 BLUE_CLOSE_INTAKE_GATE_CONTROL,
-                                                BLUE_CLOSE_INTAKE_GATE_END)
+                                                BLUE_CLOSE_INTAKE_GATE)
                                 )
+                        ),
+                        new ParallelDeadlineGroup(
+                                new WaitCommand(2000),
+                                new DriveCurrentToPoint(follower,
+                                        BLUE_CLOSE_INTAKE_GATE_END)
                         ),
 
                         new ParallelCommandGroup(
@@ -231,7 +218,6 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                                         new InstantCommand(() -> robot.intake.intakeStop())
                                 ),
 //                                new InstantCommand(() -> robot.intake.intakeStop()),
-
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
                                 new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
                                 new DriveCurrentToPoint(follower,
@@ -249,11 +235,11 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                         new ParallelDeadlineGroup(
                                 new WaitCommand(1300), // 等待吸取时间
                                 new DriveCurrentToPoint(follower,
-                                    BLUE_CLOSE_INTAKE_FIRST_CONTROL,
-                                    BLUE_CLOSE_INTAKE_FIRST_END
-                            )
+                                        BLUE_CLOSE_INTAKE_FIRST_CONTROL,
+                                        BLUE_CLOSE_INTAKE_FIRST_END
+                                ).setMaxPower(0.8)
                         ),
-                        new WaitCommand(300), // 等待吸取时间
+                        new WaitCommand(200), // 等待吸取时间
                         new ParallelCommandGroup(
                                 new SequentialCommandGroup(
                                         new WaitCommand(400),

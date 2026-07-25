@@ -65,6 +65,11 @@ public class A_2_AA_AS_NoPP extends LinearOpMode {
                 manualPanel = 0.8;
             }
 
+            if (gamepad2.dpadLeftWasPressed()) manualVelocity += 40;
+            if (gamepad2.dpadRightWasPressed()) manualVelocity -= 40;
+            if (gamepad2.yWasPressed()) manualPanel += 0.01;
+            if (gamepad2.aWasPressed()) manualPanel -= 0.01;
+
             joinedTele.addData("target", targetATAN);
             joinedTele.addData("turretTo", turretTargetHeading);
             joinedTele.addData("turretDegree", robot.shooter.getTurretDegree());

@@ -121,11 +121,11 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                         // 第一次收球: 收集第二组球
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(1500), // 等待吸取时间
+                                new WaitCommand(1800), // 等待吸取时间
                                 new DriveCurrentToPoint(follower,
                                     RED_CLOSE_INTAKE_SECOND_CONTROL,
                                     RED_CLOSE_INTAKE_SECOND_END
-                                )
+                                ).setMaxPower(0.8)
                         ),
 
 //                        new WaitCommand(INTAKE_TIME), // 等待吸取时间
@@ -160,7 +160,7 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                                     )
                         ),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(1500),
+                                new WaitCommand(1300),
                                 new DriveCurrentToPoint(follower,
                                         RED_CLOSE_INTAKE_GATE_END)
                         ),
@@ -254,13 +254,13 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                         // 第一组球
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(1300), // 等待吸取时间
+                                new WaitCommand(1500), // 等待吸取时间
                                 new DriveCurrentToPoint(follower,
                                     RED_CLOSE_INTAKE_FIRST_CONTROL,
                                     RED_CLOSE_INTAKE_FIRST_END
-                            )
+                                ).setMaxPower(0.8)
                         ),
-                        new WaitCommand(300), // 等待吸取时间
+                        new WaitCommand(200), // 等待吸取时间
                         new ParallelCommandGroup(
                                 new SequentialCommandGroup(
                                         new WaitCommand(400),

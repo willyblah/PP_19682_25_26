@@ -12,7 +12,7 @@ public class robotConstants {
 
     public static double PANEL_A =  2.39680e-7;
     public static double PANEL_B = -9.05038e-5;
-    public static double PANEL_C =  0.018501136306;
+    public static double PANEL_C =  0.021251136306;
     public static double PANEL_D = -0.302168750944;
     public static double PANEL_MIN = 0.20;
     public static double PANEL_MAX = 1;// 0.85;  // 从数据范围推导
