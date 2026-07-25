@@ -153,18 +153,17 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                         new ParallelCommandGroup(
                             new InstantCommand(() -> robot.intake.intakeIn()),
                             new ParallelDeadlineGroup(
-                                    new WaitCommand(15000),
+                                    new WaitCommand(2000),
                                     new DriveCurrentToPoint(follower,
                                             RED_CLOSE_INTAKE_GATE_CONTROL,
-                                            RED_CLOSE_INTAKE_GATE_END)
+                                            RED_CLOSE_INTAKE_GATE)
                                     )
                         ),
-
-//                        new ParallelDeadlineGroup(
-//                                new WaitCommand(1500),
-//                                new DriveCurrentToPoint(follower,
-//                                        RED_CLOSE_INTAKE_GATE_END)
-//                        ),
+                        new ParallelDeadlineGroup(
+                                new WaitCommand(1500),
+                                new DriveCurrentToPoint(follower,
+                                        RED_CLOSE_INTAKE_GATE_END)
+                        ),
 
                         new ParallelCommandGroup(
                                 new SequentialCommandGroup(
@@ -188,11 +187,16 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> robot.intake.intakeIn()),
                                 new ParallelDeadlineGroup(
-                                        new WaitCommand(3500),
+                                        new WaitCommand(2000),
                                         new DriveCurrentToPoint(follower,
                                                 RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE_END)
+                                                RED_CLOSE_INTAKE_GATE)
                                 )
+                        ),
+                        new ParallelDeadlineGroup(
+                                new WaitCommand(1500),
+                                new DriveCurrentToPoint(follower,
+                                        RED_CLOSE_INTAKE_GATE_END)
                         ),
 
                         new ParallelCommandGroup(
@@ -217,11 +221,16 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> robot.intake.intakeIn()),
                                 new ParallelDeadlineGroup(
-                                        new WaitCommand(3500),
+                                        new WaitCommand(2000),
                                         new DriveCurrentToPoint(follower,
                                                 RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE_END)
+                                                RED_CLOSE_INTAKE_GATE)
                                 )
+                        ),
+                        new ParallelDeadlineGroup(
+                                new WaitCommand(1500),
+                                new DriveCurrentToPoint(follower,
+                                        RED_CLOSE_INTAKE_GATE_END)
                         ),
 
                         new ParallelCommandGroup(

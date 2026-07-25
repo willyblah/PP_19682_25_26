@@ -12,7 +12,7 @@ public class robotConstants {
 
     public static double PANEL_A =  2.39680e-7;
     public static double PANEL_B = -9.05038e-5;
-    public static double PANEL_C =  0.015501136306;
+    public static double PANEL_C =  0.018501136306;
     public static double PANEL_D = -0.302168750944;
     public static double PANEL_MIN = 0.20;
     public static double PANEL_MAX = 1;// 0.85;  // 从数据范围推导
@@ -21,8 +21,8 @@ public class robotConstants {
     public static double L_GATE_CLOSE = 0.39;//0.403;
     public static double R_GATE_OPEN = 0.5;
     public static double R_GATE_CLOSE = 0.67;//0.66;
-    public static double CURVE_OPEN = 0.639; // 发射
-    public static double CURVE_CLOSE = 0.639; // 0.94; // 关闭发射
+    public static double CURVE_OPEN = 0.645; // 发射
+    public static double CURVE_CLOSE = 0.94; // 关闭发射
 
     public static volatile double autoEndX = 72;
     public static volatile double autoEndY = 72;

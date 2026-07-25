@@ -8,6 +8,7 @@ import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_F
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_FIRST_CONTROL;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_FIRST_CONTROL_21;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_FIRST_END;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_GATE;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_GATE_CONTROL;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_GATE_END;
 import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_SECOND_CONTROL;
@@ -60,7 +61,7 @@ public class RED_CLOSE_18_rp extends OpMode {
         follower.setStartingPose(RED_CLOSE_START.copy());
         robot.autoInit(hardwareMap);
         telemetryM.update();
-        TOTAL_SHOOT_TIME = 350;
+        TOTAL_SHOOT_TIME = 450;
         Drawing.init();
     }
 
@@ -151,11 +152,16 @@ public class RED_CLOSE_18_rp extends OpMode {
                         new ParallelCommandGroup(
                             new InstantCommand(() -> robot.intake.intakeIn()),
                             new ParallelDeadlineGroup(
-                                    new WaitCommand(2200),
+                                    new WaitCommand(2000),
                                     new DriveCurrentToPoint(follower,
                                             RED_CLOSE_INTAKE_GATE_CONTROL,
-                                            RED_CLOSE_INTAKE_GATE_END)
+                                            RED_CLOSE_INTAKE_GATE)
                                     )
+                        ),
+                        new ParallelDeadlineGroup(
+                                new WaitCommand(2000),
+                                new DriveCurrentToPoint(follower,
+                                        RED_CLOSE_INTAKE_GATE_END)
                         ),
 
                         // 移动到发射位置
@@ -174,41 +180,20 @@ public class RED_CLOSE_18_rp extends OpMode {
                         new InstantCommand(() -> robot.intake.gateClose()),
                         new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
 
-                        // 第一次闸门cycle
-                        new ParallelCommandGroup(
-                                new InstantCommand(() -> robot.intake.intakeIn()),
-                                new ParallelDeadlineGroup(
-                                        new WaitCommand(3000),
-                                        new DriveCurrentToPoint(follower,
-                                                RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE_END)
-                                )
-                        ),
-
-                        // 移动到发射位置
-                        new ParallelCommandGroup(
-                                new InstantCommand(() -> robot.intake.intakeStop()),
-                                new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
-                                new InstantCommand(() -> robot.shooter.turretToDegree(RED_CLOSE_FIRE_TURRET)),
-                                new DriveCurrentToPoint(follower,
-                                        RED_CLOSE_SHOOT_PRELOAD)
-                        ),
-
-                        new InstantCommand(() -> robot.intake.gateOpen()),
-                        new InstantCommand(() -> robot.intake.intakeFire(robot.shooter.calculateIntakePower())),
-                        new WaitCommand(TOTAL_SHOOT_TIME),
-                        new InstantCommand(() -> robot.intake.gateClose()),
-                        new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
-
                         // 第二次闸门cycle
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> robot.intake.intakeIn()),
                                 new ParallelDeadlineGroup(
-                                        new WaitCommand(3000),
+                                        new WaitCommand(2000),
                                         new DriveCurrentToPoint(follower,
                                                 RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE_END)
+                                                RED_CLOSE_INTAKE_GATE)
                                 )
+                        ),
+                        new ParallelDeadlineGroup(
+                                new WaitCommand(2000),
+                                new DriveCurrentToPoint(follower,
+                                        RED_CLOSE_INTAKE_GATE_END)
                         ),
 
                         // 移动到发射位置
@@ -233,7 +218,7 @@ public class RED_CLOSE_18_rp extends OpMode {
                                         new WaitCommand(2500),
                                         new DriveCurrentToPoint(follower,
                                                 RED_FAR_INTAKE_THIRD_CONTROL,
-                                                RED_FAR_INTAKE_THIRD_END)
+                                                RED_FAR_INTAKE_THIRD_END).setMaxPower(0.8)
                                         )
                         ),
 
@@ -260,7 +245,7 @@ public class RED_CLOSE_18_rp extends OpMode {
                                 new DriveCurrentToPoint(follower,
                                         RED_CLOSE_INTAKE_FIRST_CONTROL,
                                         RED_CLOSE_INTAKE_FIRST_END
-                                )
+                                ).setMaxPower(0.8)
                         ),
 
                         new ParallelCommandGroup(
@@ -277,7 +262,6 @@ public class RED_CLOSE_18_rp extends OpMode {
                         new WaitCommand(TOTAL_SHOOT_TIME),
                         new InstantCommand(() -> robot.intake.gateClose()),
                         new InstantCommand(() -> distance = CLOSE_HOLD_DISTANCE),
-
 
 
                         // 停靠
