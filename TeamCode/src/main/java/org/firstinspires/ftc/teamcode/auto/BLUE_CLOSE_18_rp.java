@@ -100,7 +100,7 @@ public class BLUE_CLOSE_18_rp extends OpMode {
                         // 第一次收球: 收集第二组球
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(1500), // 等待吸取时间
+                                new WaitCommand(1900), // 等待吸取时间
                                 new DriveCurrentToPoint(follower,
                                         BLUE_CLOSE_INTAKE_SECOND_CONTROL,
                                         BLUE_CLOSE_INTAKE_SECOND_END
@@ -127,7 +127,7 @@ public class BLUE_CLOSE_18_rp extends OpMode {
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> robot.intake.intakeIn()),
                                 new ParallelDeadlineGroup(
-                                        new WaitCommand(2000),
+                                        new WaitCommand(2200),
                                         new DriveCurrentToPoint(follower,
                                                 BLUE_CLOSE_INTAKE_GATE_CONTROL,
                                                 BLUE_CLOSE_INTAKE_GATE)
@@ -140,13 +140,11 @@ public class BLUE_CLOSE_18_rp extends OpMode {
                         ),
 
                         // 移动到发射位置
-                        new ParallelDeadlineGroup(
-                                new WaitCommand(1200),
+                        new ParallelCommandGroup(
                                 new InstantCommand(() -> robot.intake.intakeStop()),
                                 new InstantCommand(() -> distance = CLOSE_FIRE_DISTANCE),
                                 new InstantCommand(() -> robot.shooter.turretToDegree(BLUE_CLOSE_FIRE_TURRET)),
-                                new DriveCurrentToPoint(follower,
-                                        BLUE_CLOSE_SHOOT_PRELOAD)
+                                new DriveCurrentToPoint(follower, BLUE_CLOSE_SHOOT_PRELOAD)
                         ),
 
                         new InstantCommand(() -> robot.intake.gateOpen()),
@@ -159,7 +157,7 @@ public class BLUE_CLOSE_18_rp extends OpMode {
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> robot.intake.intakeIn()),
                                 new ParallelDeadlineGroup(
-                                        new WaitCommand(2000),
+                                        new WaitCommand(2400),
                                         new DriveCurrentToPoint(follower,
                                                 BLUE_CLOSE_INTAKE_GATE_CONTROL,
                                                 BLUE_CLOSE_INTAKE_GATE)
@@ -190,7 +188,7 @@ public class BLUE_CLOSE_18_rp extends OpMode {
                         new ParallelCommandGroup(
                                 new InstantCommand(() -> robot.intake.intakeIn()),
                                 new ParallelDeadlineGroup(
-                                        new WaitCommand(2500),
+                                        new WaitCommand(2800),
                                         new DriveCurrentToPoint(follower,
                                                 BLUE_FAR_INTAKE_THIRD_CONTROL,
                                                 BLUE_FAR_INTAKE_THIRD_END).setMaxPower(0.8)
@@ -215,7 +213,7 @@ public class BLUE_CLOSE_18_rp extends OpMode {
 
                         // 第一组球
                         new ParallelDeadlineGroup(
-                                new WaitCommand(1000),
+                                new WaitCommand(1600),
                                 new InstantCommand(() -> robot.intake.intakeIn()),
                                 new DriveCurrentToPoint(follower,
                                         BLUE_CLOSE_INTAKE_FIRST_CONTROL,
