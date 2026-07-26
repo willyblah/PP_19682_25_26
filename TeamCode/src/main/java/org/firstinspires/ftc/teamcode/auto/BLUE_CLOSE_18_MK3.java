@@ -1,7 +1,30 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.*;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.AUTO_CLOSE_WAIT_FOR_SHOOT;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_FIRE_DISTANCE;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_FIRE_INTAKE_POWER;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_GATE_RUNNING_POWER;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_HOLD_DISTANCE;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_FIRE_TURRET;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_FIRST_CONTROL;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_FIRST_END;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_GATE;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_GATE_CONTROL;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_GATE_END;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_SECOND_CONTROL;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_SECOND_END;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_INTAKE_SECOND_GATE;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_PARK;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_SHOOT_PRELOAD;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.BLUE_CLOSE_START;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.TOTAL_SHOOT_TIME;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.BLUE_TARGET_X;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.BLUE_TARGET_Y;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndH;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndX;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndY;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetX;
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetY;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -22,7 +45,7 @@ import org.firstinspires.ftc.teamcode.subsystems.FollowerSubsystem;
 import org.firstinspires.ftc.teamcode.subsystems.Robot;
 
 @Autonomous
-public class BLUE_CLOSE_18_MK2 extends OpMode {
+public class BLUE_CLOSE_18_MK3 extends OpMode {
     private static FollowerSubsystem follower;
     @IgnoreConfigurable
     static TelemetryManager telemetryM;
@@ -101,10 +124,10 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                         // 第一次收球: 收集第二组球
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(1900), // 等待吸取时间
+                                new WaitCommand(2200), // 等待吸取时间
                                 new DriveCurrentToPoint(follower,
                                         BLUE_CLOSE_INTAKE_SECOND_CONTROL,
-                                        BLUE_CLOSE_INTAKE_SECOND_END
+                                        BLUE_CLOSE_INTAKE_SECOND_GATE
                                 ).setMaxPower(0.8)
                         ),
 
@@ -134,12 +157,12 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(1300),
                                         new DriveCurrentToPoint(follower,
                                                 BLUE_CLOSE_INTAKE_GATE_CONTROL,
-                                                BLUE_CLOSE_INTAKE_GATE).setHoldEnd(true)
+                                                BLUE_CLOSE_INTAKE_GATE)
                                 )
                         ),
 
                         new ParallelDeadlineGroup(
-                                new WaitCommand(1900),
+                                new WaitCommand(1500),
                                 new DriveCurrentToPoint(follower,
                                         BLUE_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
@@ -169,11 +192,11 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(1300),
                                         new DriveCurrentToPoint(follower,
                                                 BLUE_CLOSE_INTAKE_GATE_CONTROL,
-                                                BLUE_CLOSE_INTAKE_GATE).setHoldEnd(true)
+                                                BLUE_CLOSE_INTAKE_GATE)
                                 )
                         ),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(2500),
+                                new WaitCommand(2200),
                                 new DriveCurrentToPoint(follower,
                                         BLUE_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
@@ -203,11 +226,11 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(1300),
                                         new DriveCurrentToPoint(follower,
                                                 BLUE_CLOSE_INTAKE_GATE_CONTROL,
-                                                BLUE_CLOSE_INTAKE_GATE).setHoldEnd(true)
+                                                BLUE_CLOSE_INTAKE_GATE)
                                 )
                         ),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(2500),
+                                new WaitCommand(2200),
                                 new DriveCurrentToPoint(follower,
                                         BLUE_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),

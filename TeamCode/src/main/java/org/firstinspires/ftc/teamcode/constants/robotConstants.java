@@ -22,7 +22,7 @@ public class robotConstants {
     public static double R_GATE_OPEN = 0.5;
     public static double R_GATE_CLOSE = 0.67;//0.66;
     public static double CURVE_OPEN = 0.645; // 发射
-    public static double CURVE_CLOSE = 0.94; // 关闭发射
+    public static double CURVE_CLOSE = 0.84; // 关闭发射
 
     public static volatile double autoEndX = 72;
     public static volatile double autoEndY = 72;

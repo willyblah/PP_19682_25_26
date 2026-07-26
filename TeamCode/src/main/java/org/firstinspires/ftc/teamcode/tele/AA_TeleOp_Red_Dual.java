@@ -22,7 +22,7 @@ public class AA_TeleOp_Red_Dual extends AA_TeleOp_Base {
     public static double RESET_H_DEG = -90;
 
     /** gamepad1.dpadUp/dpadDown 分别切换的两个底盘角度锁定预设(度)，红方独立可调，不影响蓝方。 */
-    public static double HEADING_LOCK_ANGLE_1_DEG = -70;
+    public static double HEADING_LOCK_ANGLE_1_DEG = -65;
     public static double HEADING_LOCK_ANGLE_2_DEG = -124;
 
     @Override
