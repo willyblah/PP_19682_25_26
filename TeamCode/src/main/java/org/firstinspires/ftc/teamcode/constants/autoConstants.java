@@ -64,7 +64,7 @@ public class autoConstants {
 
     // ==================== RED ====================
 
-    public static double RED_CLOSE_FIRE_TURRET = 48;
+    public static double RED_CLOSE_FIRE_TURRET = 47;
     public static double RED_CLOSE_FIRE_TURRET_21 = 85;
 
 
@@ -93,11 +93,11 @@ public class autoConstants {
     public static Pose RED_CLOSE_SHOOT_SECOND_ROW = new Pose(82.94, 85.1, Math.toRadians(0));
     public static Pose RED_CLOSE_INTAKE_SECOND_GATE = new Pose(128, 63, Math.toRadians(0));
 
-    public static Pose RED_CLOSE_INTAKE_THIRD_START = new Pose(99, 36, Math.toRadians(0));
-    public static Pose RED_CLOSE_INTAKE_THIRD_END = new Pose(125.2, 36, Math.toRadians(0));
+    public static Pose RED_CLOSE_INTAKE_THIRD_START = new Pose(99, 37, Math.toRadians(0));
+    public static Pose RED_CLOSE_INTAKE_THIRD_END = new Pose(125.2, 37, Math.toRadians(0));
     public static Pose RED_CLOSE_SHOOT_THIRD_ROW = new Pose(82.94, 85.1, Math.toRadians(0));
 
-    public static Pose RED_CLOSE_INTAKE_GATE = new Pose(122, 59.46, Math.toRadians(37));
+    public static Pose RED_CLOSE_INTAKE_GATE = new Pose(121, 59.46, Math.toRadians(37));
     public static Pose RED_CLOSE_INTAKE_GATE_CONTROL = new Pose(101, 63.5);
     public static Pose RED_CLOSE_INTAKE_GATE_END = new Pose(132, 57.8, Math.toRadians(32));
     public static Pose RED_CLOSE_SHOOT_INTAKE_GATE = new Pose(82.94, 85.1, Math.toRadians(0));

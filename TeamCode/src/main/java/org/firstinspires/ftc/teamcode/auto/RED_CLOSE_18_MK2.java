@@ -69,7 +69,7 @@ public class RED_CLOSE_18_MK2 extends OpMode {
         follower.follower.update();
         draw();
 //        robot.shooter.setShooterByDis(distance);
-        robot.shooter.setShooter(0.94, 1470);
+        robot.shooter.setShooter(0.96, 1420);
         autoEndX = follower.follower.getPose().getX();
         autoEndY = follower.follower.getPose().getY();
         autoEndH = follower.follower.getPose().getHeading();
@@ -101,7 +101,7 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                         // 第一次收球: 收集第二组球
                         new InstantCommand(() -> robot.intake.intakeIn()),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(2000), // 等待吸取时间
+                                new WaitCommand(1900), // 等待吸取时间
                                 new DriveCurrentToPoint(follower,
                                         RED_CLOSE_INTAKE_SECOND_CONTROL,
                                         RED_CLOSE_INTAKE_SECOND_END
@@ -134,12 +134,12 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(1300),
                                         new DriveCurrentToPoint(follower,
                                                 RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE)
+                                                RED_CLOSE_INTAKE_GATE).setHoldEnd(true)
                                 )
                         ),
 
                         new ParallelDeadlineGroup(
-                                new WaitCommand(1500),
+                                new WaitCommand(1900),
                                 new DriveCurrentToPoint(follower,
                                         RED_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
@@ -169,11 +169,11 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(1300),
                                         new DriveCurrentToPoint(follower,
                                                 RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE)
+                                                RED_CLOSE_INTAKE_GATE).setHoldEnd(true)
                                 )
                         ),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(2200),
+                                new WaitCommand(2500),
                                 new DriveCurrentToPoint(follower,
                                         RED_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
@@ -203,11 +203,11 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(1300),
                                         new DriveCurrentToPoint(follower,
                                                 RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE)
+                                                RED_CLOSE_INTAKE_GATE).setHoldEnd(true)
                                 )
                         ),
                         new ParallelDeadlineGroup(
-                                new WaitCommand(2200),
+                                new WaitCommand(2500),
                                 new DriveCurrentToPoint(follower,
                                         RED_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
