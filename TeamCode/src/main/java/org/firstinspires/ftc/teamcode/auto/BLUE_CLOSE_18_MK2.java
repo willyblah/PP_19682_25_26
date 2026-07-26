@@ -107,7 +107,7 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                                 ).setMaxPower(0.8)
                         ),
 
-//                        new WaitCommand(INTAKE_TIME), // 等待吸取时间
+                        new WaitCommand(500), // 等待吸取时间
 
                         // 移动到发射位置
                         new ParallelCommandGroup(
@@ -138,10 +138,12 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                                                 BLUE_CLOSE_INTAKE_GATE)
                                 )
                         ),
+                        new WaitCommand(5000),
+
                         new ParallelDeadlineGroup(
                                 new WaitCommand(1300),
                                 new DriveCurrentToPoint(follower,
-                                        BLUE_CLOSE_INTAKE_GATE_END)
+                                        BLUE_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
 
                         new ParallelCommandGroup(
@@ -175,7 +177,7 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                         new ParallelDeadlineGroup(
                                 new WaitCommand(1500),
                                 new DriveCurrentToPoint(follower,
-                                        BLUE_CLOSE_INTAKE_GATE_END)
+                                        BLUE_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
 
                         new ParallelCommandGroup(
@@ -209,7 +211,7 @@ public class BLUE_CLOSE_18_MK2 extends OpMode {
                         new ParallelDeadlineGroup(
                                 new WaitCommand(1500),
                                 new DriveCurrentToPoint(follower,
-                                        BLUE_CLOSE_INTAKE_GATE_END)
+                                        BLUE_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
 
                         new ParallelCommandGroup(

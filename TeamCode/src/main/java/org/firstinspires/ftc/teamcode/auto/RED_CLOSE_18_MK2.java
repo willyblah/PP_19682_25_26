@@ -1,28 +1,8 @@
 package org.firstinspires.ftc.teamcode.auto;
 
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.AUTO_CLOSE_WAIT_FOR_SHOOT;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_FIRE_TURRET;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_FIRST_CONTROL;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_FIRST_END;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_GATE;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_GATE_CONTROL;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_GATE_END;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_SECOND_CONTROL;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_INTAKE_SECOND_END;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_PARK;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_SHOOT_PRELOAD;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.RED_CLOSE_START;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_FIRE_DISTANCE;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_FIRE_INTAKE_POWER;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.CLOSE_HOLD_DISTANCE;
-import static org.firstinspires.ftc.teamcode.constants.autoConstants.TOTAL_SHOOT_TIME;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.RED_TARGET_X;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.RED_TARGET_Y;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndH;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndX;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.autoEndY;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetX;
-import static org.firstinspires.ftc.teamcode.constants.robotConstants.teleOpTargetY;
+import static org.firstinspires.ftc.teamcode.constants.autoConstants.*;
+
+import static org.firstinspires.ftc.teamcode.constants.robotConstants.*;
 
 import com.arcrobotics.ftclib.command.CommandScheduler;
 import com.arcrobotics.ftclib.command.InstantCommand;
@@ -162,7 +142,7 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                         new ParallelDeadlineGroup(
                                 new WaitCommand(1300),
                                 new DriveCurrentToPoint(follower,
-                                        RED_CLOSE_INTAKE_GATE_END)
+                                        RED_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
 
                         new ParallelCommandGroup(
@@ -196,7 +176,7 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                         new ParallelDeadlineGroup(
                                 new WaitCommand(1500),
                                 new DriveCurrentToPoint(follower,
-                                        RED_CLOSE_INTAKE_GATE_END)
+                                        RED_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
 
                         new ParallelCommandGroup(
@@ -224,13 +204,13 @@ public class RED_CLOSE_18_MK2 extends OpMode {
                                         new WaitCommand(2000),
                                         new DriveCurrentToPoint(follower,
                                                 RED_CLOSE_INTAKE_GATE_CONTROL,
-                                                RED_CLOSE_INTAKE_GATE)
+                                                RED_CLOSE_INTAKE_GATE).setHoldEnd(true)
                                 )
                         ),
                         new ParallelDeadlineGroup(
                                 new WaitCommand(1500),
                                 new DriveCurrentToPoint(follower,
-                                        RED_CLOSE_INTAKE_GATE_END)
+                                        RED_CLOSE_INTAKE_GATE_END).setMaxPower(CLOSE_GATE_RUNNING_POWER)
                         ),
 
                         new ParallelCommandGroup(

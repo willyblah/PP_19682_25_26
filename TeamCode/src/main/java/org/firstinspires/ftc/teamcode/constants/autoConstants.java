@@ -8,6 +8,7 @@ public class autoConstants {
     public static long AUTO_CLOSE_WAIT_FOR_SHOOT = 0;
     public static double CLOSE_FIRE_DISTANCE = 68;
     public static double CLOSE_FIRE_INTAKE_POWER = 0.8;
+    public static double CLOSE_GATE_RUNNING_POWER = 0.6;
     public static double FAR_FIRE_INTAKE_POWER = 0.5;
     public static double CLOSE_HOLD_DISTANCE = CLOSE_FIRE_DISTANCE;
     public static long AUTO_FAR_WAIT_FOR_SHOOT = 800;
